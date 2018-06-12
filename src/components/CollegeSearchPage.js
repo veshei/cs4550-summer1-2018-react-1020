@@ -47,7 +47,7 @@ export default class CollegeSearchPage extends React.Component {
                 <ul>
                     {this.state.collegeResults.map(college => {
                         console.log(college.school.name);
-                        return <li>{college.school.name}</li>
+                        return <li><a href={"/college/" + college.id}>{college.school.name}</a></li>
                     })}
                 </ul>
             </div>
