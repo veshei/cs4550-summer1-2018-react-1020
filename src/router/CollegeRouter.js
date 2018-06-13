@@ -6,7 +6,7 @@ import CollegePage from '../Components/CollegePage';
 import Login from '../Components/Login';
 import Register from '../Components/Register';
 import NavBar from "../Components/NavBar";
-import {Home} from "../index";
+import {Header} from "../index";
 
 export default class CollegeRouter extends React.Component {
     render() {
@@ -15,7 +15,7 @@ export default class CollegeRouter extends React.Component {
                 <Route exact path="/search" component={CollegeSearchPage}>
                 </Route>
                 <Route exact path='/'
-                       component={Home}/>
+                       component={HomePage}/>
                 <Route exact path='/CollegeSearch'
                        component={NavBar}/>
                 <Route exact path="/college/:collegeId" component={CollegePage}>
