@@ -9,7 +9,7 @@ export default class HomePage extends React.Component {
             <div>
                 <NavBar/>
             </div>
-            <div style={{height:'100%', width: '100%', 'background-color': 'red'}}>
+
                 <div className="container">
                     <div className="container-col col-2">
                         <AccountSideBar/>
@@ -22,6 +22,5 @@ export default class HomePage extends React.Component {
                     </div>
                 </div>
             </div>
-        </div>
     }
 }
