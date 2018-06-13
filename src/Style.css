@@ -1,0 +1,29 @@
+.container {
+    width: 100%;
+    position: relative;
+    height: 100%;
+    display: flex;
+    margin: 0;
+}
+.container-col {
+
+    display: flex;
+    flex: 1;
+    width: 100%;
+    position: relative;
+    height: 100%;
+    background-color: white;
+
+}
+
+.container-main {
+    display: block;
+    flex: 2;
+    width: 100%;
+    position: relative;
+    height: calc(100%);
+}
+
+.list-group-item{
+
+}
