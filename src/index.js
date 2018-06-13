@@ -6,8 +6,9 @@ import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import NavBar from "./Components/NavBar";
 import './Style.css';
 import AccountSideBar from "./Components/AccountSideBar";
+import CollegeRouter from "./router/CollegeRouter";
 
-const Home = () => {
+export const Home = () => {
     return (
         <div className="container">
             <div className="container-col">
@@ -23,14 +24,7 @@ const Home = () => {
 
 const App = () => {
     return (
-        <Router>
-            <div>
-                <Route exact path='/'
-                       component={Home}/>
-                <Route exact path='/CollegeSearch'
-                       component={NavBar}/>
-            </div>
-        </Router>
+        <CollegeRouter/>
     )
 };
 const Header = () => {
