@@ -3,38 +3,30 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Link,Switch, Route}
     from 'react-router-dom'
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
-import NavBar from "./Components/NavBar";
+import NavBar from "./components/NavBar";
 import './Style.css';
-import AccountSideBar from "./Components/AccountSideBar";
-import CollegeRouter from "./router/CollegeRouter";
+import AccountSideBar from "./components/AccountSideBar";
+import CollegePage from "./components/CollegePage";
+import CollegeManager from "./components/CollegeManager";
 
-export const Home = () => {
-    return (
-        <div className="container">
-            <div className="container-col">
-            <AccountSideBar/>
-            </div>
-            <div className="container-main">
-                <h1> Welcome to College Counseling </h1>
-                <Link to='/'> Click Here To Search Colleges </Link></div>
-            <div className="container-col"> </div>
-        </div>
-    )
-};
-
-const App = () => {
-    return (
-        <CollegeRouter/>
-    )
-};
 const Header = () => {
     return (
-        <div>
+        <div style={{height:'100%'}}>
             <div>
                 <NavBar/>
             </div>
-            <div>
-                <App/>
+            <div style={{height:'100%'}}>
+                <div className="container">
+                    <div className="container-col">
+                        <AccountSideBar/>
+                    </div>
+                    <div className="container-main">
+                        <CollegeManager/>
+                    </div>
+                    <div className="container-col">
+                        <AccountSideBar/>
+                    </div>
+                </div>
             </div>
         </div>
     )
