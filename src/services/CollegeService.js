@@ -29,4 +29,15 @@ export default class CollegeService {
             return response.json();
         });
     }
+
+    /**
+     * Returns the information associated with the college of the given id.
+     * @param collegeId the id of the college
+     * @return a JSON object containing the information about the college
+     */
+    searchCollegeInfoById(collegeId) {
+        return fetch(COLLEGE_API_URL + 'id=' + collegeId).then(response => {
+            return response.json();
+        })
+    }
 }
