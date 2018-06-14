@@ -15,7 +15,7 @@ export default class Register extends React.Component {
             firstName: '',
             lastName: '',
             role: 'Student'
-        }
+        };
         this.userService = UserService.instance;
         this.setUsername = this.setUsername.bind(this);
         this.setPassword = this.setPassword.bind(this);
@@ -92,7 +92,10 @@ export default class Register extends React.Component {
         if (password === password2) {
             const credentials = {
                 username: username,
-                password: password
+                password: password,
+                role: this.state.role,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName
             };
             this.userService.register(credentials).then(user => {
                 console.log(user);
@@ -137,7 +140,7 @@ export default class Register extends React.Component {
                        onChange={(event) => {this.setDateOfBirth(event.target.value)}}/>
 
                 <label>Role</label>
-                <select>
+                <select onChange={(event) =>{this.setRole(event.target.value)}}>
                     <option onSelect={(event) => this.setRole('Student')}>Student</option>
                     <option onSelect={(event) => this.setRole('Parent')}>Parent</option>
                     <option onSelect={(event) => this.setRole('Counselor')}>Counselor</option>
