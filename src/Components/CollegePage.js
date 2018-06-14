@@ -60,18 +60,15 @@ export default class CollegePage extends React.Component {
             }
         };
         this.collegeService = CollegeService.instance;
-        let collegeId = this.props.collegeId;
-        if (!collegeId) { // If not passed in as a prop. get from the url
-            collegeId = this.props.match.params['collegeId'];
-            this.state.collegeId = collegeId;
-        }
     }
 
     componentDidMount() {
         let collegeId = this.props.collegeId;
+        if (!collegeId) {
+            collegeId = this.props.history.location.state.collegeId;
+        }
         if (!collegeId) { // If not passed in as a prop. get from the url
             collegeId = this.props.match.params['collegeId'];
-            this.state.collegeId = collegeId;
         }
         this.collegeService.searchCollegeInfoById(collegeId).then(schoolJSON => {
             let schoolInfo = schoolJSON.results[0];

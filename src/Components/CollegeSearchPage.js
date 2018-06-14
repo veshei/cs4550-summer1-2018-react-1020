@@ -55,13 +55,6 @@ export default class CollegeSearchPage extends React.Component {
                     {this.state.isSearching && 'Searching for colleges...'}
                 </div>
                 <CollegeList collegesInfo={this.state.collegeResults}/>
-                {/*<ul>*/}
-                    {/*{this.state.collegeResults.map(college => {*/}
-                        {/*console.log(college.school.name);*/}
-                        {/*return <li><a href={"/college/" + college.id}>{college.school.name}</a></li>*/}
-                    {/*})}*/}
-                {/*</ul>*/}
-
             </div>
         )
     }

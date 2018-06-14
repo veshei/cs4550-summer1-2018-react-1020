@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 /**
  * An individual item in the CollegeList that displays college information
@@ -21,6 +22,11 @@ export default class CollegeListItem extends React.Component {
     }
 
     render() {
-        return (<li><a href={"/college/" + this.state.college.id}>{this.state.college.school.name}</a></li>);
+        return (<li><Link to={{
+            pathname: "/college/" + this.state.college.id,
+            state: {
+                collegeId: this.state.college.id
+            }
+        }}>{this.state.college.school.name}</Link></li>);
     }
 }
