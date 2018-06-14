@@ -1,8 +1,8 @@
 import React from 'react';
 import CollegeService from '../services/CollegeService';
-import CollegeList from './CollegeList';
+import CollegeSearchList from './CollegeSearchList';
 
-export default class CollegeSearchPage extends React.Component {
+export default class CollegePage extends React.Component {
 
     constructor(props) {
         super(props);
@@ -54,7 +54,7 @@ export default class CollegeSearchPage extends React.Component {
                 <div>
                     {this.state.isSearching && 'Searching for colleges...'}
                 </div>
-                <CollegeList collegesInfo={this.state.collegeResults}/>
+                <CollegeSearchList collegesInfo={this.state.collegeResults}/>
             </div>
         )
     }

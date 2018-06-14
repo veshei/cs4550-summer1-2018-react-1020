@@ -1,11 +1,11 @@
 import React from 'react';
-import CollegeListItem from './CollegeListItem';
+import CollegeSearchListItem from './CollegeSearchListItem';
 import {BrowserRouter as Router} from 'react-router-dom';
 
 /**
  * A list component that displays information about colleges.
  */
-export default class CollegeList extends React.Component {
+export default class CollegeSearchList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -30,7 +30,7 @@ export default class CollegeList extends React.Component {
             <ul>
 
                 {this.state.collegesInfo.map(college => {
-                    return <CollegeListItem college={college} key={college.id}/>
+                    return <CollegeSearchListItem college={college} key={college.id}/>
                 })}
 
             </ul>)

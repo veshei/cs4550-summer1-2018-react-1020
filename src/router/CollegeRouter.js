@@ -1,19 +1,18 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import CollegeSearchPage from '../Components/CollegeSearchPage';
-import HomePage from '../Components/HomePage';
-import CollegePage from '../Components/CollegePage';
-import Login from '../Components/Login';
-import Register from '../Components/Register';
-import NavBar from "../Components/NavBar";
+import HomePage from '../components/HomePage';
+import CollegePage from '../components/CollegePage';
+import Login from '../components/Login';
+import Register from '../components/Register';
+import NavBar from "../components/NavBar";
 import {Header} from "../index";
-import UserProfile from '../Components/UserProfile';
+import UserProfile from '../components/UserProfile';
 
 export default class CollegeRouter extends React.Component {
     render() {
         return <Router>
             <div>
-                <Route exact path="/search" component={CollegeSearchPage}>
+                <Route exact path="/search" component={CollegePage}>
                 </Route>
                 <Route exact path='/'
                        component={HomePage}/>

@@ -2,9 +2,9 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 /**
- * An individual item in the CollegeList that displays college information
+ * An individual item in the CollegeSearchList that displays college information
  */
-export default class CollegeListItem extends React.Component {
+export default class CollegeSearchListItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
