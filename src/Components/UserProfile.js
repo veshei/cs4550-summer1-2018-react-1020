@@ -90,10 +90,11 @@ export default class UserProfile extends React.Component {
                    }}/>
 
             <label>Date of Birth: </label>
-            <input type="text"
+            <input type="date"
                    placholder="Username"
                    value={this.state.dateOfBirth}
                    onChange={(event) => {
+                       console.log(event.target.value);
                        this.formUpdate({dateOfBirth: event.target.value})
                    }}/>
             {/*TODO college list component*/}
