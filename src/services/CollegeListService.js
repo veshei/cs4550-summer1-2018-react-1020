@@ -2,7 +2,7 @@ import ReviewService from "./ReviewService";
 
 let _singleton = Symbol();
 const LOCAL_URL = 'http://localhost:8080';
-const HEROKU_URL = 'https://cs4550-summer1-2018-react-1020.herokuapp.com';
+const HEROKU_URL = 'https://cs4550-springboot-1020.herokuapp.com/';
 export default class CollegeListService {
     constructor(singletonToken) {
         if (_singleton !== singletonToken)
