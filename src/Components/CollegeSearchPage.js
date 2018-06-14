@@ -1,5 +1,6 @@
 import React from 'react';
 import CollegeService from '../services/CollegeService';
+import CollegeList from './CollegeList';
 
 export default class CollegeSearchPage extends React.Component {
 
@@ -31,7 +32,6 @@ export default class CollegeSearchPage extends React.Component {
             collegeResults: []
         });
         this.collegeService.searchCollegeByName(searchTerm).then(colleges => {
-            console.log(colleges);
             this.setState({
                 collegeResults: colleges.results,
                 isSearching: false
@@ -54,12 +54,13 @@ export default class CollegeSearchPage extends React.Component {
                 <div>
                     {this.state.isSearching && 'Searching for colleges...'}
                 </div>
-                <ul>
-                    {this.state.collegeResults.map(college => {
-                        console.log(college.school.name);
-                        return <li><a href={"/college/" + college.id}>{college.school.name}</a></li>
-                    })}
-                </ul>
+                <CollegeList collegesInfo={this.state.collegeResults}/>
+                {/*<ul>*/}
+                    {/*{this.state.collegeResults.map(college => {*/}
+                        {/*console.log(college.school.name);*/}
+                        {/*return <li><a href={"/college/" + college.id}>{college.school.name}</a></li>*/}
+                    {/*})}*/}
+                {/*</ul>*/}
 
             </div>
         )

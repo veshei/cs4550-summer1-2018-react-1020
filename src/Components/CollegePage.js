@@ -1,5 +1,6 @@
 import React from 'react';
 import CollegeService from '../services/CollegeService';
+import CollegeReviewList from './CollegeReviewList';
 
 /**
  * A component for rendering college information for a particular college.
@@ -59,12 +60,18 @@ export default class CollegePage extends React.Component {
             }
         };
         this.collegeService = CollegeService.instance;
+        let collegeId = this.props.collegeId;
+        if (!collegeId) { // If not passed in as a prop. get from the url
+            collegeId = this.props.match.params['collegeId'];
+            this.state.collegeId = collegeId;
+        }
     }
 
     componentDidMount() {
         let collegeId = this.props.collegeId;
         if (!collegeId) { // If not passed in as a prop. get from the url
             collegeId = this.props.match.params['collegeId'];
+            this.state.collegeId = collegeId;
         }
         this.collegeService.searchCollegeInfoById(collegeId).then(schoolJSON => {
             let schoolInfo = schoolJSON.results[0];
@@ -217,6 +224,8 @@ export default class CollegePage extends React.Component {
                         <li>4-year graduation rate: {this.state.completionInfo['4YearGraduationRate']}</li>
                     </ul>
                 </div>
+
+                <CollegeReviewList collegeId={this.state.collegeId}/>
             </div>
         )
     }
