@@ -15,6 +15,7 @@ export default class NavBar extends React.Component {
             }
         }
         this.getLoggedInUser = this.getLoggedInUser.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     /**
@@ -22,11 +23,20 @@ export default class NavBar extends React.Component {
      */
     getLoggedInUser() {
         this.userService.getProfile().then(user => {
+            console.log(user);
             if (user) {
                 this.setState({user: user});
-                console.log(user.username);
             }
         })
+    }
+
+    /**
+     * Logs the current user out.
+     */
+    logout() {
+        this.userService.logout().then(() => {
+            this.setState({user: {}});
+        });
     }
 
     componentWillMount() {
@@ -37,29 +47,40 @@ export default class NavBar extends React.Component {
         return (
             <div>
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <a className="navbar-brand" href="#">College Counsel</a>
+                    <a className="navbar-brand" href="/">College Counsel</a>
                     <div className="navbar-collapse">
-                        <ul className="navbar-nav mr-auto">
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Login<span className="sr-only">(current)</span></a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Home</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Other</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Items</a>
-                            </li>
-                        </ul>
+                        {!this.state.user.username ?
+                            <ul className="navbar-nav mr-auto">
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/">Home</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/login">Login<span
+                                        className="sr-only">(current)</span></a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/register">Register</a>
+                                </li>
+                            </ul> :
+                            <ul className="navbar-nav mr-auto">
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/">Home</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/profile">Profile</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/" onClick={this.logout}>Logout</a>
+                                </li>
+                            </ul>
+                        }
                         <form className="form-inline my-2 my-lg-0">
                             <input className="form-control mr-md-4" type="search" placeholder="Search for college"
                                    aria-label="Search"/>
                             <button className="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
                         </form>
                         <span>
-                            Welcome {this.state.user.username}!
+                            {this.state.user.username && <span>Welcome {this.state.user.username}!</span>}
                     </span>
                     </div>
                 </nav>
