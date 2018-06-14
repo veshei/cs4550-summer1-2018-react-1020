@@ -6,9 +6,6 @@ import NavBar from './NavBar';
 export default class HomePage extends React.Component {
     render() {
         return  <div style={{height:'100%'}}>
-            <div>
-                <NavBar/>
-            </div>
 
                 <div className="container">
                     <div className="container-col col-2">

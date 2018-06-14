@@ -12,12 +12,18 @@ export default class Register extends React.Component {
             username: '',
             password: '',
             confirmPassword: '',
+            firstName: '',
+            lastName: '',
             role: 'Student'
         }
         this.userService = UserService.instance;
         this.setUsername = this.setUsername.bind(this);
         this.setPassword = this.setPassword.bind(this);
         this.setConfirmPassword = this.setConfirmPassword.bind(this);
+        this.setRole = this.setRole.bind(this);
+        this.setFirstName = this.setFirstName.bind(this);
+        this.setLastName = this.setLastName.bind(this);
+        this.setDateOfBirth = this.setDateOfBirth.bind(this);
     }
 
     /**
@@ -50,6 +56,30 @@ export default class Register extends React.Component {
      */
     setRole(newRole) {
         this.setState({role: newRole});
+    }
+
+    /**
+     * Sets the state's first name to the given one.
+     * @param newFirstName the new first name for the first name field
+     */
+    setFirstName(newFirstName) {
+        this.setState({firstName: newFirstName});
+    }
+
+    /**
+     * Sets the state's last name to the given one.
+     * @param newLastName the new last name for the last name field
+     */
+    setLastName(newLastName) {
+        this.setState({lastName: newLastName});
+    }
+
+    /**
+     * Sets the state's date of birth to the given one.
+     * @param newDateOfBirth the new date of birth
+     */
+    setDateOfBirth(newDateOfBirth) {
+        this.setState({dateOfBirth: newDateOfBirth});
     }
 
     /**
@@ -92,12 +122,26 @@ export default class Register extends React.Component {
                        placeholder="Password"
                        onChange={(event) => {this.setConfirmPassword(event.target.value)}}/>
 
+                <label>First Name</label>
+                <input type="text"
+                       placeholder="First Name"
+                       onChange={(event) => {this.setFirstName(event.target.value)}}/>
+
+                <label>Last Name</label>
+                <input type="text"
+                       placeholder="Last Name"
+                       onChange={(event) => {this.setLastName(event.target.value)}}/>
+
+                <label>Date of Birth</label>
+                <input type="date"
+                       onChange={(event) => {this.setDateOfBirth(event.target.value)}}/>
+
                 <label>Role</label>
-                <input type="select">
-                    <select onSelect={(event) => this.setRole('Student')}>Student</select>
-                    <select onSelect={(event) => this.setRole('Parent')}>Parent</select>
-                    <select onSelect={(event) => this.setRole('Counselor')}>Counselor</select>
-                </input>
+                <select>
+                    <option onSelect={(event) => this.setRole('Student')}>Student</option>
+                    <option onSelect={(event) => this.setRole('Parent')}>Parent</option>
+                    <option onSelect={(event) => this.setRole('Counselor')}>Counselor</option>
+                </select>
 
                 <button type="button"
                         onClick={() => this.register(this.state.username, this.state.password, this.state.confirmPassword)}>Register</button>
