@@ -9,10 +9,26 @@ export default class CollegeReviewListItem extends React.Component {
         super(props);
         this.state = {
             collegeId: '',
-            review: {}
+            review: {
+                title: '',
+                user: {},
+                body: '',
+            }
         }
         this.reviewService = ReviewService.instance;
+        this.deleteReview = this.deleteReview.bind(this);
     }
+
+    /**
+     * Deletes the review of the given id.
+     * @param reviewId the id of the review
+     */
+    deleteReview(reviewId) {
+        this.reviewService.deleteReview(reviewId).then(() => {
+            console.log('review deleted');
+        })
+    }
+
 
     componentDidMount() {
         console.log(this.props.review);
@@ -25,7 +41,9 @@ export default class CollegeReviewListItem extends React.Component {
     render() {
         return (<li>
             <div>{this.state.review.title}</div>
+            <div>{this.state.review.user.username}</div>
             <div>{this.state.review.body}</div>
+            <button onClick={() => this.deleteReview(this.state.review.id)}>Delete</button>
         </li>)
     }
 }
