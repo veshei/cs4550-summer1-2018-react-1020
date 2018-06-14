@@ -2,6 +2,7 @@ import React from 'react';
 import CollegeService from '../services/CollegeService';
 import CollegeReviewList from './CollegeReviewList';
 import WriteReview from "./WriteReview";
+import CollegeQuestionList from "./CollegeQuestionList";
 
 /**
  * A component for rendering college information for a particular college.
@@ -225,6 +226,7 @@ export default class CollegePage extends React.Component {
 
                 <WriteReview collegeId={this.state.collegeId}/>
                 <CollegeReviewList collegeId={this.state.collegeId}/>
+                <CollegeQuestionList collegeId={this.state.collegeId}/>
             </div>
         )
     }
