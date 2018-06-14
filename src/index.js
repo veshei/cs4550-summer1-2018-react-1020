@@ -3,39 +3,19 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Link,Switch, Route}
     from 'react-router-dom'
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
-import NavBar from "./components/NavBar";
+import NavBar from "./Components/NavBar";
 import './Style.css';
-import AccountSideBar from "./components/AccountSideBar";
-import CollegePage from "./components/CollegePage";
-import CollegeManager from "./components/CollegeManager";
+import AccountSideBar from "./Components/AccountSideBar";
+import CollegePage from "./Components/CollegePage";
+import CollegeManager from "./Components/CollegeManager";
 
-
-
-
-const Header = () => {
+const App = () => {
     return (
-        <div style={{height:'100%'}}>
-            <div>
-                <NavBar/>
-            </div>
-            <div style={{height:'100%'}}>
-                <div className="container">
-                    <div className="container-col">
-                        <AccountSideBar/>
-                    </div>
-                    <div className="container-main">
-                        <CollegeManager/>
-                    </div>
-                    <div className="container-col">
-                        <AccountSideBar/>
-                    </div>
-                </div>
-            </div>
-        </div>
+       <CollegeManager/>
     )
 };
 ReactDOM.render(
-    <Header/>,
+    <App/>,
     document.getElementById('root')
 );
 

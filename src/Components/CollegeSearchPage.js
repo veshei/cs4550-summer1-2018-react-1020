@@ -1,5 +1,6 @@
 import React from 'react';
 import CollegeService from '../services/CollegeService';
+import CollegeList from './CollegeList';
 
 export default class CollegeSearchPage extends React.Component {
 
@@ -8,6 +9,7 @@ export default class CollegeSearchPage extends React.Component {
         this.state = {
             searchTerm: '',
             collegeResults: [],
+            isSearching: false
         }
         this.collegeService = CollegeService.instance;
     }
@@ -25,9 +27,15 @@ export default class CollegeSearchPage extends React.Component {
      * component's page.
      */
     searchCollege(searchTerm) {
+        this.setState({
+            isSearching: true,
+            collegeResults: []
+        });
         this.collegeService.searchCollegeByName(searchTerm).then(colleges => {
-            console.log(colleges);
-            this.setState({collegeResults: colleges.results});
+            this.setState({
+                collegeResults: colleges.results,
+                isSearching: false
+            });
         });
     }
 
@@ -43,13 +51,10 @@ export default class CollegeSearchPage extends React.Component {
                        placeholder="Enter the name of a college..."
                        onChange={event => this.setSearchTerm(event.target.value)}/>
                 <button type="button" onClick={() => this.searchCollege(this.state.searchTerm)}>Search</button>
-
-                <ul>
-                    {this.state.collegeResults.map(college => {
-                        console.log(college.school.name);
-                        return <li><a href={"/college/" + college.id}>{college.school.name}</a></li>
-                    })}
-                </ul>
+                <div>
+                    {this.state.isSearching && 'Searching for colleges...'}
+                </div>
+                <CollegeList collegesInfo={this.state.collegeResults}/>
             </div>
         )
     }

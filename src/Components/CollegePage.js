@@ -1,5 +1,7 @@
 import React from 'react';
 import CollegeService from '../services/CollegeService';
+import CollegeReviewList from './CollegeReviewList';
+import WriteReview from "./WriteReview";
 
 /**
  * A component for rendering college information for a particular college.
@@ -63,6 +65,9 @@ export default class CollegePage extends React.Component {
 
     componentDidMount() {
         let collegeId = this.props.collegeId;
+        if (!collegeId) {
+            collegeId = this.props.history.location.state.collegeId;
+        }
         if (!collegeId) { // If not passed in as a prop. get from the url
             collegeId = this.props.match.params['collegeId'];
         }
@@ -71,7 +76,7 @@ export default class CollegePage extends React.Component {
             console.log(schoolInfo['2015']);
             console.log(schoolInfo);
             this.setState({
-                collegeId: this.props.collegeId,
+                collegeId: collegeId,
                 schoolInfo: schoolInfo,
                 school: schoolInfo.school,
                 raceInfo: schoolInfo['2015'].student.demographics.race_ethnicity,
@@ -217,6 +222,9 @@ export default class CollegePage extends React.Component {
                         <li>4-year graduation rate: {this.state.completionInfo['4YearGraduationRate']}</li>
                     </ul>
                 </div>
+
+                <WriteReview collegeId={this.state.collegeId}/>
+                <CollegeReviewList collegeId={this.state.collegeId}/>
             </div>
         )
     }
