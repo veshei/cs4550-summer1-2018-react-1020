@@ -28,7 +28,8 @@ export default class UserService {
             body: JSON.stringify(credentials),
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            credentials: 'include'
         }).then(response => {
             if (response.ok) {
                 return response.json();
@@ -48,12 +49,30 @@ export default class UserService {
             body: JSON.stringify(credentials),
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            credentials: 'include'
         }).then(response => {
             if (response.ok) {
                 return response.json();
             }
             return null;
         });
+    }
+
+    /**
+     * Returns the currently logged in user.
+     */
+    getProfile() {
+        return fetch(LOCAL_URL + '/api/profile', {
+            credentials: 'include'
+            }
+        ).then(response => {
+            return response.text().then(text => {
+                if (text) {
+                    return JSON.parse(text);
+                }
+                return null;
+            })
+        })
     }
 }

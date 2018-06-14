@@ -26,11 +26,16 @@ export default class CollegeSearchPage extends React.Component {
      * component's page.
      */
     searchCollege(searchTerm) {
-        this.setState({isSearching: true});
+        this.setState({
+            isSearching: true,
+            collegeResults: []
+        });
         this.collegeService.searchCollegeByName(searchTerm).then(colleges => {
             console.log(colleges);
-            this.setState({collegeResults: colleges.results,
-            isSearching: false});
+            this.setState({
+                collegeResults: colleges.results,
+                isSearching: false
+            });
         });
     }
 
@@ -47,7 +52,7 @@ export default class CollegeSearchPage extends React.Component {
                        onChange={event => this.setSearchTerm(event.target.value)}/>
                 <button type="button" onClick={() => this.searchCollege(this.state.searchTerm)}>Search</button>
                 <div>
-                {this.state.isSearching && 'Searching for colleges...'}
+                    {this.state.isSearching && 'Searching for colleges...'}
                 </div>
                 <ul>
                     {this.state.collegeResults.map(college => {
