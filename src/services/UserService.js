@@ -60,6 +60,16 @@ export default class UserService {
     }
 
     /**
+     * Logs the currently logged in user out.
+     */
+    logout() {
+        return fetch(LOCAL_URL + '/api/logout', {
+            method: 'POST',
+            credentials: 'include'
+        });
+    }
+
+    /**
      * Returns the currently logged in user.
      */
     getProfile() {

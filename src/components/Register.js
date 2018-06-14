@@ -14,8 +14,9 @@ export default class Register extends React.Component {
             confirmPassword: '',
             firstName: '',
             lastName: '',
-            role: 'Student'
-        }
+            roles: 'Student',
+            dateOfBirth:'1111-01-01'
+        };
         this.userService = UserService.instance;
         this.setUsername = this.setUsername.bind(this);
         this.setPassword = this.setPassword.bind(this);
@@ -55,7 +56,15 @@ export default class Register extends React.Component {
      * @param newRole the new role
      */
     setRole(newRole) {
-        this.setState({role: newRole});
+        if (newRole === 'Parent') {
+            this.setState({roles: 'PARENT'});
+        }
+        else if(newRole === 'Student') {
+            this.setState({roles: 'STUDENT'});
+        }
+        else if(newRole=== 'College Counselor'){
+            this.setState({roles: 'COLLEGE_COUNSELOR'})
+        }
     }
 
     /**
@@ -92,9 +101,16 @@ export default class Register extends React.Component {
         if (password === password2) {
             const credentials = {
                 username: username,
-                password: password
+                password: password,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                roles: this.state.roles,
+                dateOfBirth: this.state.dateOfBirth
+
             };
+
             this.userService.register(credentials).then(user => {
+                console.log(credentials);
                 console.log(user);
                 // Redirect back to home
                 if (user) {
@@ -137,10 +153,10 @@ export default class Register extends React.Component {
                        onChange={(event) => {this.setDateOfBirth(event.target.value)}}/>
 
                 <label>Role</label>
-                <select>
-                    <option onSelect={(event) => this.setRole('Student')}>Student</option>
-                    <option onSelect={(event) => this.setRole('Parent')}>Parent</option>
-                    <option onSelect={(event) => this.setRole('Counselor')}>Counselor</option>
+                <select onChange={(event) =>{this.setRole(event.target.value)}}>
+                    <option onSelect={(event) => this.setRole('STUDENT')}>Student</option>
+                    <option onSelect={(event) => this.setRole('PARENT')}>Parent</option>
+                    <option onSelect={(event) => this.setRole('COLLEGE_COUNSELOR')}>College Counselor</option>
                 </select>
 
                 <button type="button"
