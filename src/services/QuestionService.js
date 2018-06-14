@@ -2,6 +2,8 @@ import CollegeService from "./CollegeService";
 
 let _singleton = Symbol();
 const LOCAL_URL = 'http://localhost:8080';
+const HEROKU_URL = 'https://cs4550-summer1-2018-react-1020.herokuapp.com';
+
 /**
  * A frontend service for questions.
  */
@@ -23,7 +25,7 @@ export default class QuestionService {
      * @return the list of all questions for the college
      */
     findQuestionsForCollege(collegeId) {
-        return fetch(LOCAL_URL + '/api/question/college/' + collegeId).then(response => {
+        return fetch(HEROKU_URL + '/api/question/college/' + collegeId).then(response => {
             return response.json();
         })
     }
@@ -34,7 +36,7 @@ export default class QuestionService {
      * @return the question created on success, null on failure
      */
     createQuestion(question) {
-        return fetch(LOCAL_URL + '/api/user/question', {
+        return fetch(HEROKU_URL + '/api/user/question', {
             method: 'POST',
             body: JSON.stringify(question),
             headers: {

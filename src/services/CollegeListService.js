@@ -2,6 +2,7 @@ import ReviewService from "./ReviewService";
 
 let _singleton = Symbol();
 const LOCAL_URL = 'http://localhost:8080';
+const HEROKU_URL = 'https://cs4550-summer1-2018-react-1020.herokuapp.com';
 export default class CollegeListService {
     constructor(singletonToken) {
         if (_singleton !== singletonToken)
@@ -15,7 +16,7 @@ export default class CollegeListService {
     }
 
     createCollegeList(collegeList) {
-        return fetch(LOCAL_URL + '/api/collegeList', {
+        return fetch(HEROKU_URL + '/api/collegeList', {
             method: 'POST',
             body: JSON.stringify(collegeList),
             headers: {
