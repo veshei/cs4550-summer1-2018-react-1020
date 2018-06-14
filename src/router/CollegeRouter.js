@@ -7,6 +7,7 @@ import Register from '../components/Register';
 import NavBar from "../components/NavBar";
 import {Header} from "../index";
 import UserProfile from '../components/UserProfile';
+import CollegeList from '../components/CollegeList';
 
 export default class CollegeRouter extends React.Component {
     render() {
@@ -26,6 +27,7 @@ export default class CollegeRouter extends React.Component {
                 </Route>
                 <Route exact path="/profile" component={UserProfile}>
                 </Route>
+                <Route exact path="/collegeList" component={CollegeList}/>
             </div>
         </Router>;
     }
