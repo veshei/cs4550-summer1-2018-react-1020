@@ -56,4 +56,15 @@ export default class ReviewService {
             });
         });
     }
+
+    /**
+     * Deletes the review of the given id.
+     * @param reviewId the id of the review
+     */
+    deleteReview(reviewId) {
+        return fetch(LOCAL_URL + '/api/review/' + reviewId, {
+            method: 'DELETE',
+            credentials: 'include'
+        });
+    }
 }

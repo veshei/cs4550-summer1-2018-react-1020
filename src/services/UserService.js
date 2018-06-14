@@ -75,4 +75,27 @@ export default class UserService {
             })
         })
     }
+
+    /**
+     * Updates the information of the currently logged in user with the information encoded in the given JSON object.
+     * @param updatedUser the updated user info
+     */
+    updateProfile(updatedUser) {
+        return fetch(LOCAL_URL + '/api/profile', {
+            method: 'PUT',
+            body: JSON.stringify(updatedUser),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        }).then(response => {
+            return response.text().then(text => {
+                if (text) {
+                    return JSON.parse(text);
+                } else {
+                    return null;
+                }
+            })
+        })
+    }
 }

@@ -7,6 +7,7 @@ import Login from '../Components/Login';
 import Register from '../Components/Register';
 import NavBar from "../Components/NavBar";
 import {Header} from "../index";
+import UserProfile from '../Components/UserProfile';
 
 export default class CollegeRouter extends React.Component {
     render() {
@@ -23,6 +24,8 @@ export default class CollegeRouter extends React.Component {
                 <Route exact path="/login" component={Login}>
                 </Route>
                 <Route exact path="/register" component={Register}>
+                </Route>
+                <Route exact path="/profile" component={UserProfile}>
                 </Route>
             </div>
         </Router>;
