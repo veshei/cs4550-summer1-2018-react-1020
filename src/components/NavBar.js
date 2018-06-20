@@ -70,6 +70,9 @@ export default class NavBar extends React.Component {
                                     <a className="nav-link" href="/profile">Profile</a>
                                 </li>
                                 <li className="nav-item">
+                                    <a className="nav-link" href="/collegeList">College List</a>
+                                </li>
+                                <li className="nav-item">
                                     <a className="nav-link" href="/" onClick={this.logout}>Logout</a>
                                 </li>
                             </ul>

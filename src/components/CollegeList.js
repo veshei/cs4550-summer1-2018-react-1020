@@ -1,47 +1,107 @@
 import React from 'react';
-import CollegeSearchPage from "./CollegeSearchPage";
 import CollegeListService from "../services/CollegeListService";
+import CollegeListSearchPage from "./CollegeListSearchPage";
+import CollegeListItem from "./CollegeListItem";
+import UserService from "../services/UserService";
 
 export default class CollegeList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             name: '',
-            listOfColleges: [],
-        }
+            collegeLists: [],
+            user: {
+                username: '',
+                password: '',
+                firstName: '',
+                lastName: '',
+                dateOfBirth: '',
+                role: ''
+            }
+        };
         this.setName = this.setName.bind(this);
         this.collegeListService = CollegeListService.instance;
+        this.userService = UserService.instance;
 
+    }
+
+    componentDidMount() {
+        this.findCollegeListForUser();
+        this.setProfile();
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.findCollegeListForUser();
+        this.setProfile();
     }
 
     setName(event) {
         this.setState({name: event.target.value});
     }
+    setProfile() {
+        this.userService.getProfile().then(user => {
+            this.setUser(user);
+        })
+    }
+
+    setUser(user) {
+        this.setState({user: user});
+    }
+
+    renderCollegeLists() {
+        let collegeLists = this.state.collegeLists.map((collegeList) => {
+            return (<CollegeListItem key={collegeList.id}
+                                     collegeList={collegeList}/>)
+        });
+        return (
+            <ul className="list-group">{collegeLists}</ul>
+        )
+    }
+
+    setListOfCollegeLists(collegeLists) {
+        this.setState({collegeLists: collegeLists})
+    }
+
+    findCollegeListForUser() {
+        this.collegeListService.findCollegeListForUser()
+            .then(collegeLists => {
+                this.setListOfCollegeLists(collegeLists)
+            });
+    }
 
     createCollegeList() {
         var collegeList = {
             name: this.state.name
-        }
-        this.collegeListService.createCollegeList(collegeList);
+        };
+        this.collegeListService.createCollegeList(collegeList)
+            .then(collegeList => {
+                if (collegeList) {
+                    alert("success");
+                }
+                else {
+                    alert("fail");
+                }
+            });
     }
 
     render() {
         return (
             <div>
-                <h1>College list</h1>
+                <h1>College List for {this.state.user.username}</h1>
                 <input className="form-control"
                        placeholder="Name of college list"
                        value={this.state.name}
                        onChange={this.setName}/>
                 {console.log(this.state.name)}
                 <button className="btn btn-primary btn-block"
-                        onClick={() => this.createCollegeList}>
+                        onClick={() => this.createCollegeList()}>
                     Submit name
                 </button>
-                <CollegeSearchPage/>
-                <ul className="list-group">
-                    <li className='list-group-item'></li>
-                </ul>
+                <CollegeListSearchPage/>
+                <li className='list-group-item'>
+                    {console.log(this.state.collegeLists)}
+                    {this.renderCollegeLists()}
+                    </li>
                 <h1>College List: {this.state.name}</h1>
             </div>);
     }
