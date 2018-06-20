@@ -2,7 +2,7 @@ import ReviewService from "./ReviewService";
 
 let _singleton = Symbol();
 const LOCAL_URL = 'http://localhost:8080';
-const HEROKU_URL = 'https://cs4550-springboot-1020.herokuapp.com/';
+const HEROKU_URL = 'https://cs4550-springboot-1020.herokuapp.com';
 export default class CollegeListService {
     constructor(singletonToken) {
         if (_singleton !== singletonToken)
@@ -15,8 +15,23 @@ export default class CollegeListService {
         return this[_singleton];
     }
 
+    findCollegeListForUser() {
+        return fetch(LOCAL_URL + '/api/user/collegeList', {
+                credentials: 'include'
+            }
+        ).then(response => {
+            return response.text().then(text => {
+                console.log(text);
+                if (text) {
+                    return JSON.parse(text);
+                }
+                return null;
+            })
+        })
+    }
+
     createCollegeList(collegeList) {
-        return fetch(HEROKU_URL + '/api/collegeList', {
+        return fetch(LOCAL_URL + '/api/user/collegeList', {
             method: 'POST',
             body: JSON.stringify(collegeList),
             headers: {

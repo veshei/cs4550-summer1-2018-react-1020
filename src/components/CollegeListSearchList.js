@@ -1,12 +1,12 @@
 import React from 'react';
 import CollegeSearchListItem from './CollegeSearchListItem';
 import {BrowserRouter as Router} from 'react-router-dom';
-import './CollegeSearchList.css';
+import CollegeListSearchListItem from "./CollegeListSearchListItem";
 
 /**
  * A list component that displays information about colleges.
  */
-export default class CollegeSearchList extends React.Component {
+export default class CollegeListSearchList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -28,14 +28,15 @@ export default class CollegeSearchList extends React.Component {
 
     render() {
         return (
-            <div>
-            <ul className="college-search-list list-group">
+            <ul>
 
                 {this.state.collegesInfo.map(college => {
-                    return <CollegeSearchListItem college={college} key={college.id}/>
+                    return (
+                        <ul className="list-group">
+                            <CollegeListSearchListItem college={college} key={college.id}/>
+                        </ul>)
                 })}
 
-            </ul>
-            </div>)
+            </ul>)
     }
 }
