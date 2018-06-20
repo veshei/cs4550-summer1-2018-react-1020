@@ -1,4 +1,5 @@
 import React from 'react';
+import './CollegeQuestionListItem.css';
 
 /**
  * An individual component for rendering question information in a question list.
@@ -8,7 +9,13 @@ export default class CollegeQuestionListItem extends React.Component {
         super(props);
         this.state = {
             collegeId: '',
-            question: {}
+            question: {
+                title: '',
+                question: '',
+                user: {
+                    username: ''
+                }
+            }
         };
     }
 
@@ -20,8 +27,11 @@ export default class CollegeQuestionListItem extends React.Component {
     }
 
     render() {
-        return (<li>
-            {this.state.question.title}
+        console.log(this.state.question);
+        return (<li className="list-group-item">
+            <div className="question-title">{this.state.question.title}</div>
+            <div>{this.state.question.user ? 'by ' + this.state.question.user.username : ''}</div>
+            <div>{this.state.question.question}</div>
         </li>)
     }
 }

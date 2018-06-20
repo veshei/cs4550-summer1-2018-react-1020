@@ -25,7 +25,7 @@ export default class WriteQuestion extends React.Component {
         const newQuestion = {
             collegeId: this.state.collegeId,
             title: questionTitle,
-            question: questionBody
+            question: questionBody,
         };
         this.questionService.createQuestion(newQuestion).then(question => {
             console.log(question);
@@ -46,18 +46,30 @@ export default class WriteQuestion extends React.Component {
     }
 
     render() {
-        return (<div>
-            <label>Question Title</label>
-            <input type="text"
-                   placeholder="Question Title"
-                   onChange={event => {this.formUpdate({questionTitle: event.target.value})}}/>
+        return (<div className="form-group">
+            <div className="form-group">
+                <label>Question Title</label>
+                <input type="text"
+                       placeholder="Question Title"
+                       className="form-control col-4"
+                       onChange={event => {
+                           this.formUpdate({questionTitle: event.target.value})
+                       }}/>
+            </div>
 
-            <label>Question Body</label>
-            <input type="text"
-                   placeholder="Question Body"
-                   onChange={event => {this.formUpdate({questionBody: event.target.value})}}/>
+            <div className="form-group">
+                <label>Question Body</label>
+                <textarea type="text"
+                          rows="5"
+                          placeholder="Question Body"
+                          className="form-control"
+                          onChange={event => {
+                              this.formUpdate({questionBody: event.target.value})
+                          }}/>
+            </div>
 
             <button type="button"
+                    className="btn btn-primary"
                     onClick={() => this.submitQuestion(this.state.questionTitle, this.state.questionBody)}>
                 Submit
             </button>
