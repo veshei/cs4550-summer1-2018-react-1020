@@ -109,4 +109,21 @@ export default class UserService {
             })
         })
     }
+
+  /**
+   * Finds a user by a username
+   * @param username
+   * @returns {Promise<Response>} Returns the user if that username exists, null otherwise
+   */
+    findUserByUsername(username){
+        return fetch(HEROKU_URL + 'api/username/' + username)
+            .then(response => {
+              if(response.status === 200){
+                return response.json
+              }
+              else{
+                return null;
+              }
+            })
+    }
 }
