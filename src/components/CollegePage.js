@@ -145,7 +145,8 @@ export default class CollegePage extends React.Component {
 
     render() {
         return (
-            <div className="container-fluid border">
+            <div>
+            <div className="container-fluid border col-9">
                 <button className="float-right btn btn-primary"
                         onClick={() => this.addCollegeToList}>
                     Add college to list
@@ -257,10 +258,15 @@ export default class CollegePage extends React.Component {
                     <li className="list-group-item">Bachelor's Degree Available:
                         {this.state.academicsInfo.hasBachelor ? ' Yes' : ' No'}</li>
                 </div>
+            </div>
 
+            <div className="container-fluid col-9 border user-section">
+                <div className="user-section">
                 <WriteReview collegeId={this.state.collegeId}/>
                 <CollegeReviewList collegeId={this.state.collegeId}/>
                 <CollegeQuestionList collegeId={this.state.collegeId}/>
+                </div>
+            </div>
             </div>
         )
     }

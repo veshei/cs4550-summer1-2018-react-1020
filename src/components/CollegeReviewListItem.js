@@ -39,11 +39,12 @@ export default class CollegeReviewListItem extends React.Component {
     }
 
     render() {
-        return (<li>
-            <div>{this.state.review.title}</div>
-            <div>{this.state.review.user.username}</div>
+        return (<li className="list-group-item">
+            <button className="float-right btn btn-danger"
+                    onClick={() => this.deleteReview(this.state.review.id)}>Delete</button>
+            <div className="review-title">{this.state.review.title}</div>
+            <div>by {this.state.review.user.username ? this.state.review.user.username : 'undefined'}</div>
             <div>{this.state.review.body}</div>
-            <button onClick={() => this.deleteReview(this.state.review.id)}>Delete</button>
         </li>)
     }
 }

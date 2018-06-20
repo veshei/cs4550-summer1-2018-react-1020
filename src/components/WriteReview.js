@@ -1,6 +1,7 @@
 import React from 'react';
 import ReviewService from "../services/ReviewService";
 import UserService from '../services/UserService';
+import './WriteReview.css';
 
 export default class WriteReview extends React.Component {
     constructor(props) {
@@ -59,20 +60,26 @@ export default class WriteReview extends React.Component {
 
     render() {
         return (
-            <div>
-                <h3>Writing review for {this.state.collegeId}</h3>
+            <div class="form-group list-group writing-review">
+                <span className="list-group-item active"><h3>Writing review for {this.state.collegeId}</h3></span>
                 <input type="text"
                        placeholder="Title"
-                       onChange={(event) => this.formUpdate({reviewTitle: event.target.value})}/>
-                <input type="text"
-                       placeholder="Write your review of the college here..."
-                       onChange={(event) => {
-                           console.log(event.target.value);
-                           this.formUpdate({
-                           reviewBody: event.target.value})}}/>
+                       onChange={(event) => this.formUpdate({reviewTitle: event.target.value})}
+                       className="form-control col-4 title-input"/>
+                <textarea type="text"
+                          rows="7"
+                          placeholder="Write your review of the college here..."
+                          onChange={(event) => {
+                              console.log(event.target.value);
+                              this.formUpdate({
+                                  reviewBody: event.target.value
+                              })
+                          }}
+                          className="form-control body-input"/>
                 <button type="button" onClick={() => {
                     this.submitReview(this.state.reviewTitle, this.state.reviewBody)
-                }}>
+                }}
+                className="btn btn-primary col-2">
                     Create Review
                 </button>
             </div>

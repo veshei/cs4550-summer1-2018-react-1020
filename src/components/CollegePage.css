@@ -25,3 +25,9 @@
 .demographic-info {
     margin: 15px;
 }
+
+.user-section {
+    margin-top: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
