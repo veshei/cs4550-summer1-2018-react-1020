@@ -150,7 +150,9 @@ export default class CollegePage extends React.Component {
                     <li className="list-group-item active"><h2>Admissions Statistics</h2></li>
 
                     <div className="admission-rate-info col-3">
-                        <h3><span className="admission-rate-label">Admission Rate:</span> {(this.state.admissionsInfo.admissionRate * 100).toFixed(2)}%</h3>
+                        <h3><span
+                            className="admission-rate-label">Admission Rate:</span> {(this.state.admissionsInfo.admissionRate * 100).toFixed(2)}%
+                        </h3>
                     </div>
                     <div>
                         <div className="container">
@@ -202,26 +204,23 @@ export default class CollegePage extends React.Component {
                     </div>
                 </div>
 
-                <div>
-                    <h3>Demographics</h3>
-                    <div>
-                        <h4>Male-Female Ratio</h4>
-                        <ul>
-                            <li>Percent Male: {(this.state.genderInfo.male * 100).toFixed(2)}%</li>
-                            <li>Percent Female: {(this.state.genderInfo.female * 100).toFixed(2)}%</li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h4>Race Demographics</h4>
-                        <ul>
-                            <li>Percent White: {(this.state.raceInfo.white * 100).toFixed(2)}%</li>
-                            <li>Percent Asian: {(this.state.raceInfo.asian * 100).toFixed(2)}%</li>
-                            <li>Percent Black: {(this.state.raceInfo.black * 100).toFixed(2)}%</li>
-                            <li>Percent Hispanic: {(this.state.raceInfo.hispanic * 100).toFixed(2)}%</li>
-                            <li>Percent Mixed: {(this.state.raceInfo.two_or_more * 100).toFixed(2)}%</li>
-                            <li>Percent Unknown: {(this.state.raceInfo.unknown * 100).toFixed(2)}%</li>
-                        </ul>
+                <div className="container-fluid list-group section-info border">
+                    <li className="list-group-item active"><h2>Demographics</h2></li>
+                    <div className="container">
+                          <span className="demographic-info list-group col-6">
+                            <li className="list-group-item active"><h4>Race Demographics</h4></li>
+                                <li className="list-group-item">Percent White: {(this.state.raceInfo.white * 100).toFixed(2)}%</li>
+                                <li className="list-group-item">Percent Asian: {(this.state.raceInfo.asian * 100).toFixed(2)}%</li>
+                                <li className="list-group-item">Percent Black: {(this.state.raceInfo.black * 100).toFixed(2)}%</li>
+                                <li className="list-group-item">Percent Hispanic: {(this.state.raceInfo.hispanic * 100).toFixed(2)}%</li>
+                                <li className="list-group-item">Percent Mixed: {(this.state.raceInfo.two_or_more * 100).toFixed(2)}%</li>
+                                <li className="list-group-item">Percent Unknown: {(this.state.raceInfo.unknown * 100).toFixed(2)}%</li>
+                        </span>
+                        <span className="demographic-info list-group col-6">
+                            <li className="list-group-item active"><h4>Male-Female Ratio</h4></li>
+                                    <li className="list-group-item">Percent Male: {(this.state.genderInfo.male * 100).toFixed(2)}%</li>
+                                    <li className="list-group-item">Percent Female: {(this.state.genderInfo.female * 100).toFixed(2)}%</li>
+                        </span>
                     </div>
                 </div>
 
