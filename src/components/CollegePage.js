@@ -130,9 +130,17 @@ export default class CollegePage extends React.Component {
         });
     }
 
+    addCollegeToList() {
+
+    }
+
     render() {
         return (
             <div>
+                <button className="float-right btn btn-primary"
+                        onClick={() => this.addCollegeToList}>
+                    Add college to list
+                </button>
                 <h1>{this.state.school.name}</h1>
                 <h4>{this.state.school.city}, {this.state.school.state}</h4>
                 <h4><a href={"//" + this.state.school.school_url}>{this.state.school.school_url}</a></h4>

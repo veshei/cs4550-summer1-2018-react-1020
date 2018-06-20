@@ -2,7 +2,7 @@ import React from 'react';
 import CollegeService from '../services/CollegeService';
 import CollegeSearchList from './CollegeSearchList';
 
-export default class CollegePage extends React.Component {
+export default class CollegeSearchPage extends React.Component {
 
     constructor(props) {
         super(props);
@@ -48,9 +48,12 @@ export default class CollegePage extends React.Component {
             <div>
                 <label>Search for college by name: </label>
                 <input type="text"
+                       className="form-control"
                        placeholder="Enter the name of a college..."
                        onChange={event => this.setSearchTerm(event.target.value)}/>
-                <button type="button" onClick={() => this.searchCollege(this.state.searchTerm)}>Search</button>
+                <button className="btn btn-success btn-block"
+                        type="button"
+                        onClick={() => this.searchCollege(this.state.searchTerm)}>Search</button>
                 <div>
                     {this.state.isSearching && 'Searching for colleges...'}
                 </div>
