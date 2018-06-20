@@ -3,6 +3,7 @@ import CollegeService from '../services/CollegeService';
 import CollegeReviewList from './CollegeReviewList';
 import WriteReview from "./WriteReview";
 import CollegeQuestionList from "./CollegeQuestionList";
+import './CollegePage.css';
 
 /**
  * A component for rendering college information for a particular college.
@@ -109,8 +110,8 @@ export default class CollegePage extends React.Component {
                         },
                         '75th-percentile': {
                             criticalReading: schoolInfo['2015'].admissions.sat_scores['75th_percentile'].critical_reading,
-                            math:  schoolInfo['2015'].admissions.sat_scores['75th_percentile'].math,
-                            writing:  schoolInfo['2015'].admissions.sat_scores['75th_percentile'].writing
+                            math: schoolInfo['2015'].admissions.sat_scores['75th_percentile'].math,
+                            writing: schoolInfo['2015'].admissions.sat_scores['75th_percentile'].writing
                         }
                     }
                 },
@@ -136,7 +137,7 @@ export default class CollegePage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="container-fluid border">
                 <button className="float-right btn btn-primary"
                         onClick={() => this.addCollegeToList}>
                     Add college to list
@@ -145,46 +146,58 @@ export default class CollegePage extends React.Component {
                 <h4>{this.state.school.city}, {this.state.school.state}</h4>
                 <h4><a href={"//" + this.state.school.school_url}>{this.state.school.school_url}</a></h4>
 
-                <div>
-                    <h3>Admissions Statistics</h3>
+                <div className="container-fluid list-group section-info border">
+                    <li className="list-group-item active"><h2>Admissions Statistics</h2></li>
+
+                    <div className="admission-rate-info col-3">
+                        <h3><span className="admission-rate-label">Admission Rate:</span> {(this.state.admissionsInfo.admissionRate * 100).toFixed(2)}%</h3>
+                    </div>
                     <div>
-                        <h4>Admission Rate: {(this.state.admissionsInfo.admissionRate * 100).toFixed(2)}%</h4>
-                        <h4>ACT scores</h4>
-                        <div>
-                            <h4>25th percentile</h4>
-                            <ul>
-                                <li>English: {this.state.admissionsInfo.actScores['25th-percentile'].english}</li>
-                                <li>Math: {this.state.admissionsInfo.actScores['25th-percentile'].math}</li>
-                                <li>Writing: {this.state.admissionsInfo.actScores['25th-percentile'].writing}</li>
-                                <li>Cumulative: {this.state.admissionsInfo.actScores['25th-percentile'].cumulative}</li>
-                            </ul>
+                        <div className="container">
+                            <span className="score-info list-group col-6">
+                                <li className="list-group-item active"><h3>ACT Scores</h3></li>
+                                <li className="list-group-item">
+                                    <div className="container specific-score-info">
+                                        <ul className="list-group score-info col-5">
+                                            <li className="list-group-item active">25th percentile</li>
+                                            <li className="list-group-item">English: {this.state.admissionsInfo.actScores['25th-percentile'].english}</li>
+                                            <li className="list-group-item">Math: {this.state.admissionsInfo.actScores['25th-percentile'].math}</li>
+                                            <li className="list-group-item">Writing: {this.state.admissionsInfo.actScores['25th-percentile'].writing}</li>
+                                            <li className="list-group-item">Cumulative: {this.state.admissionsInfo.actScores['25th-percentile'].cumulative}</li>
+                                        </ul>
+                                        <ul className="list-group score-info col-5">
+                                            <li className="list-group-item active">75th percentile</li>
+                                            <li className="list-group-item">English: {this.state.admissionsInfo.actScores['75th-percentile'].english}</li>
+                                            <li className="list-group-item">Math: {this.state.admissionsInfo.actScores['75th-percentile'].math}</li>
+                                            <li className="list-group-item">Writing: {this.state.admissionsInfo.actScores['75th-percentile'].writing}</li>
+                                            <li className="list-group-item">Cumulative: {this.state.admissionsInfo.actScores['75th-percentile'].cumulative}</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </span>
 
-                            <h4>75th percentile</h4>
-                            <ul>
-                                <li>English: {this.state.admissionsInfo.actScores['75th-percentile'].english}</li>
-                                <li>Math: {this.state.admissionsInfo.actScores['75th-percentile'].math}</li>
-                                <li>Writing: {this.state.admissionsInfo.actScores['75th-percentile'].writing}</li>
-                                <li>Cumulative: {this.state.admissionsInfo.actScores['75th-percentile'].cumulative}</li>
-                            </ul>
-                        </div>
+                            <span className="score-info list-group col-6">
+                                <li className="list-group-item active"><h3>SAT Scores</h3></li>
+                                <li className="list-group-item">
+                                    <div className="container specific-score-info">
+                                        <ul className="list-group score-info col-5">
+                                            <li className="list-group-item active">25th percentile</li>
+                                            <li className="list-group-item">Critical
+                                                Reading: {this.state.admissionsInfo.satScores['25th-percentile'].criticalReading}</li>
+                                            <li className="list-group-item">Math: {this.state.admissionsInfo.satScores['25th-percentile'].math}</li>
+                                            <li className="list-group-item">Writing: {this.state.admissionsInfo.satScores['25th-percentile'].writing}</li>
+                                        </ul>
 
-                        <h4>SAT scores</h4>
-                        <div>
-                            <h4>25th percentile</h4>
-                            <ul>
-                                <li>Critical Reading: {this.state.admissionsInfo.satScores['25th-percentile'].criticalReading}</li>
-                                <li>Math: {this.state.admissionsInfo.satScores['25th-percentile'].math}</li>
-                                <li>Writing: {this.state.admissionsInfo.satScores['25th-percentile'].writing}</li>
-                            </ul>
-                        </div>
-
-                        <div>
-                            <h4>75th percentile</h4>
-                            <ul>
-                                <li>Critical Reading: {this.state.admissionsInfo.satScores['75th-percentile'].criticalReading}</li>
-                                <li>Math: {this.state.admissionsInfo.satScores['75th-percentile'].math}</li>
-                                <li>Writing: {this.state.admissionsInfo.satScores['75th-percentile'].writing}</li>
-                            </ul>
+                                        <ul className="list-group score-info col-5">
+                                            <li className="list-group-item active">75th percentile</li>
+                                            <li className="list-group-item">Critical
+                                                Reading: {this.state.admissionsInfo.satScores['75th-percentile'].criticalReading}</li>
+                                            <li className="list-group-item">Math: {this.state.admissionsInfo.satScores['75th-percentile'].math}</li>
+                                            <li className="list-group-item">Writing: {this.state.admissionsInfo.satScores['75th-percentile'].writing}</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </span>
                         </div>
                     </div>
                 </div>
