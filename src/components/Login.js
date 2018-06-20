@@ -7,7 +7,7 @@ export default class Login extends React.Component {
         this.state = {
             username: '',
             password: ''
-        }
+        };
         this.userService = UserService.instance;
     }
 
@@ -47,19 +47,26 @@ export default class Login extends React.Component {
 
     render() {
         return (
-            <div>
-                <label>Username </label>
-                <input type="text"
-                placeholder="Username"
-                onChange={(event) => this.setUsername(event.target.value)}/>
-
-                <label>Password</label>
-                <input type="text"
-                placeholder="Password"
-                onChange={(event) => this.setPassword(event.target.value)}/>
-
-                <button type="button"
-                onClick={() => this.login(this.state.username, this.state.password)}>Login</button>
+            <div style={{marginLeft:'25%',marginRight:'25%'}}>
+              <h1> Login </h1>
+              <hr/>
+              <label>Username </label>
+              <br/>
+              <input
+                  type="text"
+                  className='registerBox'
+                  placeholder="Username"
+                  onChange={(event) => this.setUsername(event.target.value)}/>
+              <br/>
+              <label>Password</label>
+              <br/>
+              <input type="text"
+                     className='registerBox'
+                     placeholder="Password"
+                     onChange={(event) => this.setPassword(event.target.value)}/>
+              <br/>
+              <button type="button"
+              onClick={() => this.login(this.state.username, this.state.password)}>Login</button>
             </div>
         )
     }
