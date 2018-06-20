@@ -22,7 +22,7 @@ export default class CollegeSearchListItem extends React.Component {
     }
 
     render() {
-        return (<li><Link to={{
+        return (<li className="list-group-item"><Link to={{
             pathname: "/college/" + this.state.college.id,
             state: {
                 collegeId: this.state.college.id
