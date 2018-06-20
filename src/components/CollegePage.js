@@ -60,6 +60,10 @@ export default class CollegePage extends React.Component {
             },
             completionInfo: {
                 '4YearGraduationRate': ''
+            },
+            academicsInfo: {
+                hasAssociate: false,
+                hasBachelor: false
             }
         };
         this.collegeService = CollegeService.instance;
@@ -126,6 +130,10 @@ export default class CollegePage extends React.Component {
                 },
                 completionInfo: {
                     '4YearGraduationRate': schoolInfo['2015'].completion['4_yr_completion'].overall
+                },
+                academicsInfo: {
+                    hasAssociate: schoolInfo['2015'].academics.program_available.assoc,
+                    hasBachelor: schoolInfo['2015'].academics.program_available.bachelors
                 }
             });
         });
@@ -224,24 +232,30 @@ export default class CollegePage extends React.Component {
                     </div>
                 </div>
 
-                <div>
-                    <h3>Financial Information</h3>
-                    <ul>
-                        <li>In-state tuition: ${this.state.financialInfo.inStateTuition}</li>
-                        <li>Out-of-state tuition: ${this.state.financialInfo.outOfStateTuition}</li>
-                        <li>Private average net price: ${this.state.financialInfo.privateAverageNetPrice}</li>
-                        {this.state.financialInfo.publicAverageNetPrice
-                        && <li>Public average net price: ${this.state.financialInfo.publicAverageNetPrice}</li>}
-                        <li>Median debt: ${this.state.financialInfo.medianDebt}</li>
-                        <li>Percentage of Pell Grant recipients: {this.state.financialInfo.percentagePellGrant}%</li>
-                    </ul>
+                <div className="container-fluid list-group section-info border">
+                    <li className="list-group-item active"><h2>Financial Information</h2></li>
+                    <li className="list-group-item">In-state tuition: ${this.state.financialInfo.inStateTuition}</li>
+                    <li className="list-group-item">Out-of-state tuition:
+                        ${this.state.financialInfo.outOfStateTuition}</li>
+                    <li className="list-group-item">Private average net price:
+                        ${this.state.financialInfo.privateAverageNetPrice}</li>
+                    {this.state.financialInfo.publicAverageNetPrice
+                    && <li className="list-group-item">Public average net price:
+                        ${this.state.financialInfo.publicAverageNetPrice}</li>}
+                    <li className="list-group-item">Median debt: ${this.state.financialInfo.medianDebt}</li>
+                    <li className="list-group-item">Percentage of Pell Grant
+                        recipients: {(this.state.financialInfo.percentagePellGrant * 100).toFixed(2)}%
+                    </li>
                 </div>
 
-                <div>
-                    <h3>Academic Information</h3>
-                    <ul>
-                        <li>4-year graduation rate: {this.state.completionInfo['4YearGraduationRate']}</li>
-                    </ul>
+                <div className="container-fluid list-group section-info border">
+                    <li className="list-group-item active"><h2>Academic Information</h2></li>
+                    <li className="list-group-item">4-year graduation
+                        rate: {this.state.completionInfo['4YearGraduationRate']}</li>
+                    <li className="list-group-item">Associate's Degree Available:
+                        {this.state.academicsInfo.hasAssociate ? ' Yes' : ' No'}</li>
+                    <li className="list-group-item">Bachelor's Degree Available:
+                        {this.state.academicsInfo.hasBachelor ? ' Yes' : ' No'}</li>
                 </div>
 
                 <WriteReview collegeId={this.state.collegeId}/>
