@@ -2,6 +2,7 @@ import React from 'react';
 import QuestionService from '../services/QuestionService';
 import QuestionListItem from './CollegeQuestionListItem';
 import WriteQuestion from "./WriteQuestion";
+import './CollegeQuestionList.css';
 
 /**
  * A component for a list of questions.
@@ -40,14 +41,14 @@ export default class CollegeQuestionList extends React.Component {
     }
 
     render() {
-        return (<div>
-            <h3>Questions for {this.state.collegeId}</h3>
+        return (<div className="list-group question-list">
+            <li className="list-group-item active"><h3>Questions for {this.state.collegeId}</h3></li>
             <WriteQuestion collegeId={this.state.collegeId}/>
-            <ul>
-                {this.state.questions.map((question, idx) => {
-                    return <QuestionListItem question={question} collegeId={this.state.collegeId} key={idx}/>
-                })}
-            </ul>
+
+            {this.state.questions.map((question, idx) => {
+                return <QuestionListItem question={question} collegeId={this.state.collegeId} key={idx}/>
+            })}
+
         </div>)
     }
 }

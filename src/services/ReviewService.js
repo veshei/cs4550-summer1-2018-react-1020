@@ -42,7 +42,7 @@ export default class ReviewService {
      * @return the review created on success, null on failure
      */
     createReview(review) {
-        return fetch(HEROKU_URL + '/api/review', {
+        return fetch(LOCAL_URL + '/api/review', {
             method: 'POST',
             body: JSON.stringify(review),
             headers: {

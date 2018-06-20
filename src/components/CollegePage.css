@@ -1,0 +1,33 @@
+.section-info {
+    border-radius: 10px;
+    border-color: darkgray;
+    margin: 15px;
+}
+
+.score-info {
+    margin: 15px;
+}
+
+.specific-score-info {
+    justify-content: center;
+}
+
+.admission-rate-info {
+    margin: 10px;
+    border-radius: 10px;
+    border-color: black;
+}
+
+.admission-rate-label {
+    font-weight: bold;
+}
+
+.demographic-info {
+    margin: 15px;
+}
+
+.user-section {
+    margin-top: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}

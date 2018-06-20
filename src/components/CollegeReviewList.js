@@ -1,6 +1,7 @@
 import React from 'react';
 import CollegeReviewListItem from './CollegeReviewListItem';
 import ReviewService from '../services/ReviewService';
+import './CollegeReviewList.css';
 /**
  * Component for college reviews.
  */
@@ -36,13 +37,11 @@ export default class CollegeReviewList extends React.Component {
     }
 
     render() {
-        return (<div>
-            <h3>Reviews</h3>
-            <ul>
+        return (<div className="list-group college-reviews">
+            <h3 className="list-group-item active">Reviews</h3>
                 {this.state.reviews.map((review, idx) => {
                     return <CollegeReviewListItem collegeId={this.props.collegeId} review={review} key={idx}/>
                 })}
-            </ul>
         </div>)
     }
 }
