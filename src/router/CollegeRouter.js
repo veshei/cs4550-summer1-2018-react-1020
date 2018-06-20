@@ -8,6 +8,7 @@ import NavBar from "../components/NavBar";
 import {Header} from "../index";
 import UserProfile from '../components/UserProfile';
 import CollegeList from '../components/CollegeList';
+import CollegeListPage from "../components/CollegeListPage";
 
 export default class CollegeRouter extends React.Component {
     render() {
@@ -28,6 +29,7 @@ export default class CollegeRouter extends React.Component {
                 <Route exact path="/profile" component={UserProfile}>
                 </Route>
                 <Route exact path="/collegeList" component={CollegeList}/>
+                <Route exact path="/collegeList/:collegeListId" component={CollegeListPage}/>
             </div>
         </Router>;
     }

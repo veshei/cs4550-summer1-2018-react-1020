@@ -1,7 +1,7 @@
 import React from 'react';
-import CollegePage from "./CollegeSearchPage";
 import AccountSideBar from './AccountSideBar';
 import NavBar from './NavBar';
+import CollegeSearchPage from './CollegeSearchPage';
 
 export default class HomePage extends React.Component {
     render() {
@@ -12,7 +12,7 @@ export default class HomePage extends React.Component {
                         <AccountSideBar/>
                     </div>
                     <div className="container-main col-8">
-                        <CollegePage/>
+                        <CollegeSearchPage/>
                     </div>
                     <div className="container-col col-2">
                         <AccountSideBar/>
