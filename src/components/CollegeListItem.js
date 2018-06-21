@@ -31,7 +31,7 @@ export default class CollegeListItem extends React.Component {
                     collegeListId: this.state.collegeList.id,
                     collegeList: this.state.collegeList
                 }
-            }}>{this.state.collegeList.name} {console.log(this.state.collegeList)}
+            }}>{this.state.collegeList.name}
             </Link>
         </li>
         );

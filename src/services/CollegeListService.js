@@ -23,14 +23,12 @@ export default class CollegeListService {
                 'Content-Type': 'application/json'
             },
             credentials: 'include'
-        }).then(response => {
-            return response.text().then(text => {
-                if (text) {
-                    console.log(text);
-                    return JSON.parse(text);
-                }
-                return null;
-            });
+        }).then(function(response) {
+            if (response.ok) {
+                console.log(response);
+                return response.json();
+            }
+            return null;
         });
     }
 
@@ -38,15 +36,13 @@ export default class CollegeListService {
         return fetch(LOCAL_URL + '/api/user/collegeList', {
                 credentials: 'include'
             }
-        ).then(response => {
-            return response.text().then(text => {
-                console.log(text);
-                if (text) {
-                    return JSON.parse(text);
-                }
-                return null;
-            })
-        })
+        ).then(function(response) {
+            if (response.ok) {
+                console.log(response);
+                return response.json();
+            }
+            return null;
+        });
     }
 
     createCollegeList(collegeList) {
@@ -57,13 +53,12 @@ export default class CollegeListService {
                 'Content-Type': 'application/json'
             },
             credentials: 'include'
-        }).then(response => {
-            return response.text().then(text => {
-                if (text) {
-                    return JSON.parse(text);
-                }
-                return null;
-            });
+        }).then(function(response) {
+            if (response.ok) {
+                console.log(response);
+                return response.json();
+            }
+            return null;
         });
     }
 }
