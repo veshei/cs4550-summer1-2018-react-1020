@@ -58,6 +58,15 @@ html,body { height:100%; }
 
 
 
+.registerBoxReadOnly
+{
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 10px 0;
+    display: inline-block;
+    border: none;
+    background: grey;
+}
 .registerBox:focus {
     background-color: #ddd;
     outline: none;
