@@ -9,6 +9,7 @@ import {Header} from "../index";
 import UserProfile from '../components/UserProfile';
 import CollegeList from '../components/CollegeList';
 import CollegeListPage from "../components/CollegeListPage";
+import CollegeAnswersList from '../components/CollegeAnswersList';
 
 export default class CollegeRouter extends React.Component {
     render() {
@@ -30,6 +31,7 @@ export default class CollegeRouter extends React.Component {
                 </Route>
                 <Route exact path="/collegeList" component={CollegeList}/>
                 <Route exact path="/collegeList/:collegeListId" component={CollegeListPage}/>
+                <Route exact path="/college/:collegeId/question/:questionId/answer" component={CollegeAnswersList}/>
             </div>
         </Router>;
     }

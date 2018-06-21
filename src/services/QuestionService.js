@@ -52,4 +52,15 @@ export default class QuestionService {
             })
         })
     }
+
+    /**
+     * Returns the question associated with the given id.
+     * @param questionId the id of the question
+     * @return the question of the given question id
+     */
+    findQuestionById(questionId) {
+        return fetch(LOCAL_URL + '/api/question/' + questionId).then(response => {
+            return response.json();
+        })
+    }
 }
