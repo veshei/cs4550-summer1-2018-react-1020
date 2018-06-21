@@ -32,9 +32,9 @@ export default class CollegeListSearchList extends React.Component {
 
                 {this.state.collegesInfo.map(college => {
                     return (
-                        <ul className="list-group">
-                            <CollegeListSearchListItem college={college} key={college.id}/>
-                        </ul>)
+                            <CollegeListSearchListItem college={college}
+                                                       key={college.id}
+                                                       collegeList={this.props.collegeList}/>)
                 })}
 
             </ul>)
