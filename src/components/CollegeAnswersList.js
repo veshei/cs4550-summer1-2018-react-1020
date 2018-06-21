@@ -3,6 +3,7 @@ import AnswerService from '../services/AnswerService';
 import CollegeQuestionListItem from "./CollegeQuestionListItem";
 import CollegeAnswersListItem from './CollegeAnswersListItem';
 import QuestionService from "../services/QuestionService";
+import WriteAnswerComponent from "./WriteAnswerComponent";
 
 /**
  * A component to render answers to a college question.
@@ -69,6 +70,8 @@ export default class CollegeAnswersList extends React.Component {
             <div>{this.state.question.title}</div>
             <div>{'by ' + this.state.question.user.username}</div>
             <div>{this.state.question.question}</div>
+
+            <WriteAnswerComponent questionId={this.state.questionId}/>
             <ul className="list-group">
                 {this.state.answers.map((answer, idx) => {
                     return <CollegeAnswersListItem answerId={answer.id} key={idx}/>
