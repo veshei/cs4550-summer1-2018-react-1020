@@ -45,3 +45,33 @@ html,body { height:100%; }
     width: 100%;
     height:100%;
 }
+
+.registerBox
+{
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 10px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+
+
+.registerBox:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+
+.warningText{
+    font-style: italic;
+    color: red;
+    margin-bottom: 5px;
+}
+.acceptableText{
+    font-style: italic;
+    color: green;
+    margin-bottom: 5px;
+
+}

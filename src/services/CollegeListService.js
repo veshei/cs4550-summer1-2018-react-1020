@@ -15,6 +15,25 @@ export default class CollegeListService {
         return this[_singleton];
     }
 
+    updateCollegeList(collegeList) {
+        return fetch(LOCAL_URL + '/api/collegeList/' + collegeList.id, {
+            method: 'PUT',
+            body: JSON.stringify(collegeList),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        }).then(response => {
+            return response.text().then(text => {
+                if (text) {
+                    console.log(text);
+                    return JSON.parse(text);
+                }
+                return null;
+            });
+        });
+    }
+
     findCollegeListForUser() {
         return fetch(LOCAL_URL + '/api/user/collegeList', {
                 credentials: 'include'
