@@ -9,7 +9,7 @@ export default class CollegeListItem extends React.Component {
                 id: '',
                 name: '',
                 user: '',
-                colleges: []
+                listOfColleges: []
             }
             }
     };
@@ -28,9 +28,10 @@ export default class CollegeListItem extends React.Component {
             <Link to={{
                 pathname: "/collegeList/" + this.state.collegeList.id,
                 state: {
-                    collegeListId: this.state.collegeList.id
+                    collegeListId: this.state.collegeList.id,
+                    collegeList: this.state.collegeList
                 }
-            }}>{this.state.collegeList.name}
+            }}>{this.state.collegeList.name} {console.log(this.state.collegeList)}
             </Link>
         </li>
         );
