@@ -67,6 +67,7 @@ export default class UserProfile extends React.Component {
           this.userService.updateProfile(updatedUser).then(updatedUser => {
             if (updatedUser) {
               this.setState({user: updatedUser});
+              alert("Successfully updated profile!");
             } else {
               console.log('failed to update');
             }
