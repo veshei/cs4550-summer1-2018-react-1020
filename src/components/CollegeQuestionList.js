@@ -53,10 +53,14 @@ export default class CollegeQuestionList extends React.Component {
     render() {
         return (<div className="list-group question-list">
             <li className="list-group-item active"><h5>Questions for {this.state.collegeId}</h5></li>
-            <WriteQuestion reloadQuestions={this.reloadQuestions} collegeId={this.state.collegeId}/>
+            <WriteQuestion reloadQuestions={this.reloadQuestions}
+                           collegeId={this.state.collegeId}/>
 
             {this.state.questions.map((question, idx) => {
-                return <QuestionListItem question={question} collegeId={this.state.collegeId} key={idx}/>
+                return <QuestionListItem question={question}
+                                         collegeId={this.state.collegeId}
+                                         reloadQuestions={this.reloadQuestions}
+                                         key={idx}/>
             })}
 
         </div>)
