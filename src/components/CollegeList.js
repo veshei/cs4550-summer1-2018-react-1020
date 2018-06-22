@@ -49,6 +49,7 @@ export default class CollegeList extends React.Component {
     }
 
     renderCollegeLists() {
+        console.log(this.state.collegeLists);
         let collegeLists = this.state.collegeLists.map((collegeList) => {
             return (<CollegeListItem key={collegeList.id}
                                      collegeList={collegeList}/>)
