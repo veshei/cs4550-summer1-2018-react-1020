@@ -25,7 +25,9 @@ export default class CollegeReviewListItem extends React.Component {
      */
     deleteReview(reviewId) {
         this.reviewService.deleteReview(reviewId).then(() => {
-            console.log('review deleted');
+            if (this.props.reloadReviews) {
+                this.props.reloadReviews();
+            }
         })
     }
 
