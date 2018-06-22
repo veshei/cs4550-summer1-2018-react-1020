@@ -5,6 +5,7 @@ import CollegeListItem from "./CollegeListItem";
 import UserService from "../services/UserService";
 import {Link} from 'react-router-dom';
 import CollegeService from "../services/CollegeService";
+import CollegeListCollegeItem from './CollegeListCollegeItem';
 
 export default class CollegeListPage extends React.Component {
     constructor(props) {
@@ -15,7 +16,7 @@ export default class CollegeListPage extends React.Component {
                 name: '',
                 listOfColleges: [],
             },
-            colleges: [],
+            colleges: []
         };
         this.collegeService = CollegeService.instance;
     }
@@ -29,26 +30,16 @@ export default class CollegeListPage extends React.Component {
     }
 
     setCollegeList(collegeList) {
-        this.setState({collegeList: collegeList})
+        this.setState({collegeList: collegeList});
     }
 
     renderListOfColleges() {
-        console.log(this.state.colleges);
-        let listOfColleges = this.state.collegeList.listOfColleges.map((collegeId, index) => {
-                return (<li key={index}
-                            className="list-group-item">
-                    <Link to={{
-                        pathname: "/college/" + collegeId,
-                        state: {
-                            collegeId: collegeId
-                        }
-                    }}>{collegeId}
-                    </Link>
-                </li>)
-        });
-        console.log(listOfColleges);
         return (
-            <ul className='list-group'>{listOfColleges}</ul>
+            <ul className='list-group'>
+                {this.state.collegeList.listOfColleges.map(collegeId => {
+                    return <CollegeListCollegeItem collegeId={collegeId}/>
+                })}
+            </ul>
         )
     }
 
