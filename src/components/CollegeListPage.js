@@ -15,8 +15,7 @@ export default class CollegeListPage extends React.Component {
                 id: '',
                 name: '',
                 listOfColleges: [],
-            },
-            colleges: []
+            }
         };
         this.collegeService = CollegeService.instance;
     }
@@ -34,19 +33,31 @@ export default class CollegeListPage extends React.Component {
     }
 
     renderListOfColleges() {
-        return (
-            <ul className='list-group'>
-                {this.state.collegeList.listOfColleges.map(collegeId => {
-                    return <CollegeListCollegeItem collegeId={collegeId}/>
-                })}
-            </ul>
-        )
+        if (this.state.collegeList.listOfColleges != null) {
+            return (
+                <ul className='list-group'>
+                    {this.state.collegeList.listOfColleges.map(collegeId => {
+                        return <CollegeListCollegeItem collegeId={collegeId}/>
+                    })}
+                </ul>
+            )
+        }
+        else {
+            this.state.collegeList.listOfColleges = [];
+            return (
+                <ul className='list-group'>
+                    {this.state.collegeList.listOfColleges.map(collegeId => {
+                        return <CollegeListCollegeItem collegeId={collegeId}/>
+                    })}
+                </ul>
+            )
+        }
     }
 
     render() {
         return (
             <div>
-                <h1>College List Page for {this.state.collegeList.name}</h1>
+                <h1>List of Colleges for {this.state.collegeList.name}</h1>
                 <CollegeListSearchPage collegeList={this.state.collegeList}
                                        renderListOfColleges={this.renderListOfColleges}/>
                 {this.renderListOfColleges()}

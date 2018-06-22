@@ -15,6 +15,15 @@ export default class CollegeListService {
         return this[_singleton];
     }
 
+    deleteCollegeList(collegeListId) {
+        return fetch(LOCAL_URL + '/api/collegeList/' + collegeListId, {
+            method: 'DELETE',
+            credentials: 'include'
+        }).then(response => {
+            return response;
+        });
+    }
+
     updateCollegeList(collegeList) {
         return fetch(LOCAL_URL + '/api/collegeList/' + collegeList.id, {
             method: 'PUT',
