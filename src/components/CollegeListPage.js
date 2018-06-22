@@ -34,29 +34,6 @@ export default class CollegeListPage extends React.Component {
     }
 
     renderListOfColleges() {
-        // collegeInfos = this.state.collegeList.listOfColleges.map((collegeId) => {
-        //     let collegeInfo;
-        //     this.collegeService.searchCollegeInfoById(collegeId).then(college => {
-        //         collegeInfo = college;
-        //     });
-        // });
-
-        // let listOfColleges = this.state.collegeList.listOfColleges.map((collegeId) => {
-        //     return this.collegeService.searchCollegeInfoById(collegeId).then(college => {
-        //         console.log(college.results[0].id);
-        //         console.log(college.results[0].school.name);
-        //         return (<li className="list-group-item">
-        //             <Link to={{
-        //                 pathname: "/college/" + college.results[0].id,
-        //                 state: {
-        //                     collegeId: college.results[0].id
-        //                 }
-        //             }}>{college.results[0].school.name}
-        //             </Link>
-        //         </li>)
-        //     });
-        // });
-        // console.log(listOfColleges)
         return (
             <ul className='list-group'>
                 {this.state.collegeList.listOfColleges.map(collegeId => {

@@ -67,6 +67,7 @@ export default class UserProfile extends React.Component {
           this.userService.updateProfile(updatedUser).then(updatedUser => {
             if (updatedUser) {
               this.setState({user: updatedUser});
+              alert("Successfully updated profile!");
             } else {
               console.log('failed to update');
             }
@@ -84,6 +85,7 @@ export default class UserProfile extends React.Component {
         this.userService.getProfile().then(user => {
             this.setState({
                 user: user,
+                role: user.role,
                 firstName: user.firstName,
                 lastName: user.lastName,
                 dateOfBirth: user.dateOfBirth,
@@ -92,6 +94,17 @@ export default class UserProfile extends React.Component {
         })
     }
 
+    getRole(){
+      if(this.state.role === 'STUDENT'){
+        return 'Student'
+      }
+      else if(this.state.role === 'PARENT'){
+        return 'Parent'
+      }
+      else{
+        return 'College Counselor';
+      }
+    }
     render() {
         return (<div style={{marginLeft:'25%',marginRight:'25%'}}>
           <h1> Profile</h1>
@@ -100,12 +113,18 @@ export default class UserProfile extends React.Component {
           <label>Username</label>
           <br/>
           <input readOnly type="text"
-                 className="registerBox"
+                 className="registerBoxReadOnly"
                  placeholder="Username"
                  value={this.state.user.username}
-                 onChange={(event) => {
-                     this.formUpdate({username: event.target.value})
-                   }}/>
+                 />
+          <br/>
+          <label>Role</label>
+          <br/>
+          <input readOnly type="text"
+                 className="registerBoxReadOnly"
+                 placeholder="Role"
+                 value={this.getRole()}
+                 />
           <br/>
 
           <label>First Name</label>
