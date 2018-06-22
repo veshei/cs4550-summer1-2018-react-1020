@@ -1,19 +1,33 @@
+.container-fluid{
+    padding-left: 1px;
+}
 .section-info {
     border-radius: 10px;
     border-color: darkgray;
-    margin: 15px;
+    margin-top: 15px;
+    padding-right: 0;
 }
 
-.score-info {
-    margin: 15px;
+.score-info-left {
+    margin-top: 15px;
+    padding-right: 5px;
+}
+
+.score-info{
+    margin-top: 15px;
+    padding: 0;
 }
 
 .specific-score-info {
     justify-content: center;
 }
 
+.act-card{
+    padding:0;
+    height: 100%;
+}
 .admission-rate-info {
-    margin: 10px;
+    margin-top: 10px;
     border-radius: 10px;
     border-color: black;
 }
@@ -22,12 +36,26 @@
     font-weight: bold;
 }
 
-.demographic-info {
-    margin: 15px;
+.demographic-info-left {
+    margin: 15px 0 15px 0;
+    padding-right: 0;
+    padding-left: 0px
 }
-
+.demographic-info {
+    margin: 15px 0 15px 0;
+    padding-right: 0;
+    padding-left: 5px;
+}
 .user-section {
     margin-top: 15px;
     border-radius: 10px;
     margin-bottom: 15px;
+}
+
+.title-input{
+    margin-left: 0;
+}
+
+.body-input{
+    margin-left: 0;
 }
