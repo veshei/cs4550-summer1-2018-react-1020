@@ -45,45 +45,19 @@ export default class CollegeListSearchListItem extends React.Component {
         console.log(this.state.collegeList);
         if (this.state.collegeList.listOfColleges != null) {
             this.state.collegeList.listOfColleges.push(collegeId);
-            this.collegeListService.updateCollegeList(this.state.collegeList)
-                .then(collegeList => {
-                    if (collegeList) {
-                        alert("success");
-                    }
-                    else {
-                        alert("fail");
-                    }
+            this.collegeListService.addCollege(this.state.collegeList)
+                .then(() => {
+                    alert("success");
                 })
         }
         else {
             this.state.collegeList.listOfColleges = [];
             this.state.collegeList.listOfColleges.push(collegeId);
-            this.collegeListService.updateCollegeList(this.state.collegeList)
-                .then(collegeList => {
-                    if (collegeList) {
-                        console.log(collegeList);
-                        alert("success");
-                    }
-                    else {
-                        alert("fail");
-                    }
+            this.collegeListService.addCollege(this.state.collegeList)
+                .then(() => {
+                    alert("fail");
                 })
         }
-    }
-    deleteCollege(collegeId) {
-        const index = this.state.collegeList.listOfColleges.indexOf(collegeId);
-        this.state.collegeList.listOfColleges.splice(index, 1);
-        console.log(this.state.collegeList.listOfColleges);
-        this.collegeListService.updateCollegeList(this.state.collegeList)
-            .then(collegeList => {
-                if (collegeList) {
-                    console.log(collegeList);
-                    alert("success");
-                }
-                else {
-                    alert("fail");
-                }
-            })
     }
 
     render() {

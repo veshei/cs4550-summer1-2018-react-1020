@@ -24,8 +24,25 @@ export default class CollegeListService {
         });
     }
 
-    updateCollegeList(collegeList) {
-        return fetch(LOCAL_URL + '/api/collegeList/' + collegeList.id, {
+    addCollege(collegeList) {
+        return fetch(LOCAL_URL + '/api/addCollege/' + collegeList.id, {
+            method: 'PUT',
+            body: JSON.stringify(collegeList),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        }).then(function(response) {
+            if (response.ok) {
+                console.log(response);
+                return response.json();
+            }
+            return null;
+        });
+    }
+
+    deleteCollege(collegeList) {
+        return fetch(LOCAL_URL + '/api/deleteCollege/' + collegeList.id, {
             method: 'PUT',
             body: JSON.stringify(collegeList),
             headers: {
