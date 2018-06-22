@@ -119,11 +119,14 @@ export default class UserService {
         return fetch(LOCAL_URL + 'api/username/' + username)
             .then(response => {
               if(response.status === 200){
+                  console.log('response susccessful');
                 return response.json
               }
               else{
                 return null;
               }
+            }).catch(err => {
+                return null;
             })
     }
 }
