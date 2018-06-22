@@ -30,7 +30,11 @@ export default class WriteAnswerComponent extends React.Component {
             title: this.state.answerTitle,
             answer: this.state.answerBody
         }
-        this.answerService.createNewAnswer(this.state.questionId, newAnswer);
+        this.answerService.createNewAnswer(this.state.questionId, newAnswer).then(answer => {
+            if (answer && this.props.reloadAnswers) {
+                this.props.reloadAnswers();
+            }
+        });
     }
 
     componentDidMount() {
