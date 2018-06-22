@@ -63,4 +63,14 @@ export default class QuestionService {
             return response.json();
         })
     }
+
+    /**
+     * Deletes the question of the given id.
+     * @param questionId the id of the question
+     */
+    deleteQuestion(questionId) {
+        return fetch(LOCAL_URL + '/api/question/' + questionId, {
+            method: 'DELETE'
+        });
+    }
 }

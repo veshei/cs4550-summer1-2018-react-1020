@@ -257,7 +257,6 @@ export default class CollegePage extends React.Component {
                   {this.state.academicsInfo.hasBachelor ? ' Yes' : ' No'}</li>
               </div>
                 <div className="user-section">
-                  <WriteReview collegeId={this.state.collegeId}/>
                   <CollegeReviewList collegeId={this.state.collegeId}/>
                   <CollegeQuestionList collegeId={this.state.collegeId}/>
                 </div>

@@ -23,6 +23,16 @@ export default class CollegeAnswersList extends React.Component {
         };
         this.questionService = QuestionService.instance;
         this.answerService = AnswerService.instance;
+        this.reloadAnswers = this.reloadAnswers.bind(this);
+    }
+
+    /**
+     * Reloads this component's answer list.
+     */
+    reloadAnswers() {
+        this.answerService.findAllAnswersForQuestion(this.state.questionId).then(answers => {
+            this.setState({answers: answers});
+        });
     }
 
     componentDidMount() {
@@ -71,10 +81,13 @@ export default class CollegeAnswersList extends React.Component {
             <div>{'by ' + this.state.question.user.username}</div>
             <div>{this.state.question.question}</div>
 
-            <WriteAnswerComponent questionId={this.state.questionId}/>
+            <WriteAnswerComponent reloadAnswers={this.reloadAnswers}
+                                  questionId={this.state.questionId}/>
             <ul className="list-group">
                 {this.state.answers.map((answer, idx) => {
-                    return <CollegeAnswersListItem answerId={answer.id} key={idx}/>
+                    return <CollegeAnswersListItem reloadAnswers={this.reloadAnswers}
+                                                   answerId={answer.id}
+                                                   key={idx}/>
                 })}
             </ul>
         </div>)

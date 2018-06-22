@@ -2,6 +2,7 @@ import React from 'react';
 import CollegeReviewListItem from './CollegeReviewListItem';
 import ReviewService from '../services/ReviewService';
 import './CollegeReviewList.css';
+import WriteReview from './WriteReview';
 /**
  * Component for college reviews.
  */
@@ -13,6 +14,16 @@ export default class CollegeReviewList extends React.Component {
             reviews: []
         }
         this.reviewService = ReviewService.instance;
+        this.reloadReviews = this.reloadReviews.bind(this);
+    }
+
+    /**
+     * Retrieves all reviews for the college of this component's college id and sets it to this state's reviews.
+     */
+    reloadReviews() {
+       this.reviewService.findReviewsForCollege(this.props.collegeId).then(reviews => {
+           this.setState({reviews: reviews});
+       });
     }
 
     componentDidMount() {
@@ -38,9 +49,14 @@ export default class CollegeReviewList extends React.Component {
 
     render() {
         return (<div className="list-group college-reviews">
+            <WriteReview collegeId={this.props.collegeId}
+                        reloadReviews={this.reloadReviews}/>
             <h5 className="list-group-item active">Reviews</h5>
                 {this.state.reviews.map((review, idx) => {
-                    return <CollegeReviewListItem collegeId={this.props.collegeId} review={review} key={idx}/>
+                    return <CollegeReviewListItem collegeId={this.props.collegeId}
+                                                  review={review}
+                                                  reloadReviews={this.reloadReviews}
+                                                  key={idx}/>
                 })}
         </div>)
     }

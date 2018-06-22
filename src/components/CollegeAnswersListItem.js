@@ -25,7 +25,11 @@ export default class CollegeAnswersListItem extends React.Component {
      * Deletes the answer in this answer list item's state from the database.
      */
     deleteAnswer() {
-        this.answerService.deleteAnswer(this.state.answerId);
+        this.answerService.deleteAnswer(this.state.answerId).then(() => {
+            if (this.props.reloadAnswers) {
+                this.props.reloadAnswers();
+            }
+        });
     }
 
 
