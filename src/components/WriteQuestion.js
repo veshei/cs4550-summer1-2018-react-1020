@@ -29,6 +29,11 @@ export default class WriteQuestion extends React.Component {
         };
         this.questionService.createQuestion(newQuestion).then(question => {
             console.log(question);
+            // Reload the question list
+            console.log(this.props.reloadQuestions);
+            if (this.props.reloadQuestions) {
+                this.props.reloadQuestions();
+            }
         });
     }
 

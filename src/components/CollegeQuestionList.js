@@ -15,6 +15,7 @@ export default class CollegeQuestionList extends React.Component {
             questions: []
         };
         this.questionService = QuestionService.instance;
+        this.reloadQuestions = this.reloadQuestions.bind(this);
     }
 
     componentDidMount() {
@@ -40,10 +41,19 @@ export default class CollegeQuestionList extends React.Component {
         });
     }
 
+    /**
+     * Retrieves the questions for the college of the current college id and sets it to this state's questions field.
+     */
+    reloadQuestions() {
+        this.questionService.findQuestionsForCollege(this.state.collegeId).then(questions => {
+            this.setState({questions: questions});
+        });
+    }
+
     render() {
         return (<div className="list-group question-list">
             <li className="list-group-item active"><h5>Questions for {this.state.collegeId}</h5></li>
-            <WriteQuestion collegeId={this.state.collegeId}/>
+            <WriteQuestion reloadQuestions={this.reloadQuestions} collegeId={this.state.collegeId}/>
 
             {this.state.questions.map((question, idx) => {
                 return <QuestionListItem question={question} collegeId={this.state.collegeId} key={idx}/>

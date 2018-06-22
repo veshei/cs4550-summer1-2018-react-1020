@@ -38,7 +38,6 @@ export default class CollegeListService {
             }
         ).then(function(response) {
             if (response.ok) {
-                console.log(response);
                 return response.json();
             }
             return null;
