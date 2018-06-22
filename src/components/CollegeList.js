@@ -75,13 +75,8 @@ export default class CollegeList extends React.Component {
             name: this.state.name
         };
         this.collegeListService.createCollegeList(collegeList)
-            .then(collegeList => {
-                if (collegeList) {
-                    alert("success");
-                }
-                else {
-                    alert("fail");
-                }
+            .then(() => {
+                this.renderCollegeLists();
             });
     }
 
@@ -98,12 +93,10 @@ export default class CollegeList extends React.Component {
                         onClick={() => this.createCollegeList()}>
                     Submit name
                 </button>
-                <CollegeListSearchPage/>
                 <li className='list-group-item'>
                     {console.log(this.state.collegeLists)}
                     {this.renderCollegeLists()}
                     </li>
-                <h1>College List: {this.state.name}</h1>
             </div>);
     }
 }

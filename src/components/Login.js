@@ -102,7 +102,7 @@ export default class Login extends React.Component {
               <br/>
               <label>Password</label>
               <br/>
-              <input type="text"
+              <input type="password"
                      className='registerBox'
                      placeholder="Password"
                      onChange={(event) => this.setPassword(event.target.value)}/>
