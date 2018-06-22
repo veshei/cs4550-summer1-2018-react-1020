@@ -1,6 +1,6 @@
 let _singleton = Symbol();
 
-const HEROKU_URL = 'https://cs4550-springboot-1020.herokuapp.com/';
+const HEROKU_URL = 'https://cs4550-springboot-1020.herokuapp.com';
 const LOCAL_URL = 'http://localhost:8080';
 
 /**
@@ -24,7 +24,7 @@ export default class UserService {
      * @return the user, if login is successful
      */
     login(credentials) {
-        return fetch(LOCAL_URL + '/api/login', {
+        return fetch(HEROKU_URL + '/api/login', {
             method: 'POST',
             body: JSON.stringify(credentials),
             headers: {
@@ -32,8 +32,8 @@ export default class UserService {
             },
             credentials: 'include'
         }).then(response => {
-            if (response.ok) {
-                return response.json();
+            if (response.status === 200) {
+                return response.text();
             }
             return null;
         })
@@ -45,7 +45,7 @@ export default class UserService {
      * @return the user, if registration is successful
      */
     register(credentials) {
-        return fetch(LOCAL_URL + '/api/register', {
+        return fetch(HEROKU_URL + '/api/register', {
             method: 'POST',
             body: JSON.stringify(credentials),
             headers: {
@@ -64,7 +64,7 @@ export default class UserService {
      * Logs the currently logged in user out.
      */
     logout() {
-        return fetch(LOCAL_URL + '/api/logout', {
+        return fetch(HEROKU_URL + '/api/logout', {
             method: 'POST',
             credentials: 'include'
         });
@@ -74,7 +74,7 @@ export default class UserService {
      * Returns the currently logged in user.
      */
     getProfile() {
-        return fetch(LOCAL_URL + '/api/profile', {
+        return fetch(HEROKU_URL + '/api/profile', {
             credentials: 'include'
             }
         ).then(response => {
@@ -92,7 +92,7 @@ export default class UserService {
      * @param updatedUser the updated user info
      */
     updateProfile(updatedUser) {
-        return fetch(LOCAL_URL + '/api/profile', {
+        return fetch(HEROKU_URL + '/api/profile', {
             method: 'PUT',
             body: JSON.stringify(updatedUser),
             headers: {

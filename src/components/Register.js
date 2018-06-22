@@ -162,7 +162,6 @@ export default class Register extends React.Component {
         )
       }
       else if(this.state.usernameAvailable === false) {
-        console.log(this.state.username);
         return(
             <div>
               <p className="warningText">That username is taken</p>

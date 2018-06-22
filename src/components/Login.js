@@ -6,7 +6,9 @@ export default class Login extends React.Component {
         super(props);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            loginAttempt: false,
+            badCredentials: false
         };
         this.userService = UserService.instance;
     }
@@ -16,6 +18,7 @@ export default class Login extends React.Component {
      * @param newUsername the new username
      */
     setUsername(newUsername) {
+        this.setState({badCredentials:false});
         this.setState({username: newUsername});
     }
 
@@ -24,6 +27,7 @@ export default class Login extends React.Component {
      * @param newPassword the new password
      */
     setPassword(newPassword) {
+        this.setState({badCredentials:false});
         this.setState({password: newPassword});
     }
 
@@ -33,17 +37,54 @@ export default class Login extends React.Component {
      * @param password the password
      */
     login(username, password) {
+      this.setState({badCredentials:false});
+      this.setState({loginAttempt: true});
+      if(username.length > 0 && password.length > 0) {
         const credentials = {
-            username: username,
-            password: password
+          username: username,
+          password: password
         };
         this.userService.login(credentials).then(user => {
-            if (user) {
-                // Redirect back to home
-                window.location = '/';
-            }
+          if (user) {
+            // Redirect back to home
+            window.location = '/';
+          }
+          else{
+            this.setState({badCredentials:true});
+            console.log(this.state.badCredentials);
+          }
         });
+      }
     }
+  //Puts text to notify the user of the acceptability of their password
+  checkUsername(){
+    if(this.state.username.length <= 0 && this.state.loginAttempt){
+      return (
+          <div>
+            <p className="warningText">Please enter a username</p>
+          </div>)
+    }
+  }
+
+    //Puts text to notify the user of the acceptability of their password
+    checkPassword(){
+      if(this.state.password.length <= 0 && this.state.loginAttempt){
+        return (
+            <div>
+              <p className="warningText">Please enter a password</p>
+            </div>)
+      }
+    }
+
+  //Puts text to notify the user of the acceptability of their credentials
+  credentialsWarning(){
+    if(this.state.badCredentials){
+      return (
+          <div>
+            <p className="warningText">Your username or password is incorrect!</p>
+          </div>)
+    }
+  }
 
     render() {
         return (
@@ -57,6 +98,7 @@ export default class Login extends React.Component {
                   className='registerBox'
                   placeholder="Username"
                   onChange={(event) => this.setUsername(event.target.value)}/>
+              {this.checkUsername()}
               <br/>
               <label>Password</label>
               <br/>
@@ -64,9 +106,12 @@ export default class Login extends React.Component {
                      className='registerBox'
                      placeholder="Password"
                      onChange={(event) => this.setPassword(event.target.value)}/>
+              {this.checkPassword()}
               <br/>
-              <button type="button"
+              <button type="button" className="btn btn-primary btn-block"
               onClick={() => this.login(this.state.username, this.state.password)}>Login</button>
+              <br/>
+              {this.credentialsWarning()}
             </div>
         )
     }
