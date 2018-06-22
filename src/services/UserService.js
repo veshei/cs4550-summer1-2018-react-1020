@@ -24,7 +24,7 @@ export default class UserService {
      * @return the user, if login is successful
      */
     login(credentials) {
-        return fetch(HEROKU_URL + '/api/login', {
+        return fetch(LOCAL_URL + '/api/login', {
             method: 'POST',
             body: JSON.stringify(credentials),
             headers: {
@@ -45,7 +45,7 @@ export default class UserService {
      * @return the user, if registration is successful
      */
     register(credentials) {
-        return fetch(HEROKU_URL + '/api/register', {
+        return fetch(LOCAL_URL + '/api/register', {
             method: 'POST',
             body: JSON.stringify(credentials),
             headers: {
@@ -64,7 +64,7 @@ export default class UserService {
      * Logs the currently logged in user out.
      */
     logout() {
-        return fetch(HEROKU_URL + '/api/logout', {
+        return fetch(LOCAL_URL + '/api/logout', {
             method: 'POST',
             credentials: 'include'
         });
@@ -74,7 +74,7 @@ export default class UserService {
      * Returns the currently logged in user.
      */
     getProfile() {
-        return fetch(HEROKU_URL + '/api/profile', {
+        return fetch(LOCAL_URL + '/api/profile', {
             credentials: 'include'
             }
         ).then(response => {
@@ -92,7 +92,7 @@ export default class UserService {
      * @param updatedUser the updated user info
      */
     updateProfile(updatedUser) {
-        return fetch(HEROKU_URL + '/api/profile', {
+        return fetch(LOCAL_URL + '/api/profile', {
             method: 'PUT',
             body: JSON.stringify(updatedUser),
             headers: {
@@ -116,7 +116,7 @@ export default class UserService {
    * @returns {Promise<Response>} Returns the user if that username exists, null otherwise
    */
     findUserByUsername(username){
-        return fetch(HEROKU_URL + 'api/username/' + username)
+        return fetch(LOCAL_URL + 'api/username/' + username)
             .then(response => {
               if(response.status === 200){
                 return response.json
