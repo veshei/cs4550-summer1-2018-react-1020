@@ -1,6 +1,7 @@
 import React from 'react';
 import CreateNewUserForm from './CreateNewUserForm';
 import UserService from '../services/UserService';
+import AdminUserList from './AdminUserList';
 
 /**
  * An component for admin user functions like banning users, creating users, etc.
@@ -31,8 +32,7 @@ export default class AdminDashboard extends React.Component {
             Create New User
         </button>
 
-        // User search bar
-        // List of users (with delete and edit buttons)
+        <AdminUserList/>
             </div>
         )
     }

@@ -146,4 +146,34 @@ export default class UserService {
             return response.json();
         })
     }
+
+    /**
+     * Returns all users in the database.
+     * @return a list of all the users in the database
+     */
+    findAllUsers() {
+        return fetch(LOCAL_URL + '/api/user').then(response => {
+            return response.json();
+        });
+    }
+
+    /**
+     * Deletes the user of the given user id.
+     * @param userId the id of the user
+     */
+    deleteUserById(userId) {
+        return fetch(LOCAL_URL + '/api/user/' + userId, {
+            method: 'DELETE'
+        });
+    }
+
+    /**
+     * Returns a list of users that have a similar username to the one given.
+     * @param username
+     */
+    findUsersLikeUsername(username) {
+        return fetch(LOCAL_URL + '/api/user/' + username + '/similar').then(response => {
+            return response.json();
+        })
+    }
 }
