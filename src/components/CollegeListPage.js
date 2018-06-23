@@ -11,24 +11,40 @@ export default class CollegeListPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            collegeListId: '',
             collegeList: {
                 id: '',
                 name: '',
                 listOfColleges: [],
             }
         };
+        this.collegeListService = CollegeListService.instance;
+
     }
 
     componentDidMount() {
-        this.setCollegeList(this.props.history.location.state.collegeList);
+        this.setCollegeListId(this.props.history.location.state.collegeListId);
+        this.findCollegeListById(this.props.history.location.state.collegeListId);
     }
 
     componentWillReceiveProps(newProps) {
-        this.setCollegeList(newProps.collegeList);
+        this.setCollegeListId(newProps.collegeListId);
+        this.findCollegeListById(newProps.collegeListId);
+    }
+
+    setCollegeListId(collegeListId) {
+        this.setState({collegeListId: collegeListId});
     }
 
     setCollegeList(collegeList) {
-        this.setState({collegeList: collegeList});
+        this.setState({collegeList: collegeList})
+    }
+
+    findCollegeListById(collegeListId) {
+        this.collegeListService.findCollegeListById(collegeListId)
+            .then(collegeList => {
+                this.setCollegeList(collegeList);
+            });
     }
 
     renderListOfColleges() {
