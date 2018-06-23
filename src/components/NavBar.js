@@ -11,7 +11,8 @@ export default class NavBar extends React.Component {
         this.userService = UserService.instance;
         this.state = {
             user: {
-                username: ''
+                username: '',
+                role: ''
             }
         }
         this.getLoggedInUser = this.getLoggedInUser.bind(this);
@@ -71,6 +72,10 @@ export default class NavBar extends React.Component {
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="/collegeList">College List</a>
+                                </li>
+                                <li className="nav-item">
+                                    {this.state.user.role === 'ADMIN' &&
+                                    <a className="nav-link" href="/admin/dashboard">Admin Dashboard</a>}
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="/" onClick={this.logout}>Logout</a>

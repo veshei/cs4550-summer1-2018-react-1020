@@ -50,6 +50,7 @@ export default class CollegeReviewList extends React.Component {
     render() {
         return (<div className="list-group college-reviews">
             <WriteReview collegeId={this.props.collegeId}
+                         history={this.props.history}
                         reloadReviews={this.reloadReviews}/>
             <h5 className="list-group-item active">Reviews</h5>
                 {this.state.reviews.map((review, idx) => {

@@ -10,6 +10,9 @@ import UserProfile from '../components/UserProfile';
 import CollegeList from '../components/CollegeList';
 import CollegeListPage from "../components/CollegeListPage";
 import CollegeAnswersList from '../components/CollegeAnswersList';
+import AdminDashboard from "../components/AdminDashboard";
+import CreateNewUserForm from "../components/CreateNewUserForm";
+import AdminEditUserProfile from '../components/AdminEditUserProfile';
 
 export default class CollegeRouter extends React.Component {
     render() {
@@ -32,6 +35,9 @@ export default class CollegeRouter extends React.Component {
                 <Route exact path="/collegeList" component={CollegeList}/>
                 <Route exact path="/collegeList/:collegeListId" component={CollegeListPage}/>
                 <Route exact path="/college/:collegeId/question/:questionId/answer" component={CollegeAnswersList}/>
+                <Route exact path="/admin/dashboard" component={AdminDashboard}/>
+                <Route exact path="/admin/dashboard/user/create" component={CreateNewUserForm}/>
+                <Route exact path="/admin/dashboard/user/:userId/edit" component={AdminEditUserProfile}/>
             </div>
         </Router>;
     }
