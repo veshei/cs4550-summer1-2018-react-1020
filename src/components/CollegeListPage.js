@@ -19,6 +19,7 @@ export default class CollegeListPage extends React.Component {
             }
         };
         this.deleteCollege = this.deleteCollege.bind(this);
+        this.addCollege = this.addCollege.bind(this);
         this.collegeListService = CollegeListService.instance;
 
     }
@@ -58,6 +59,25 @@ export default class CollegeListPage extends React.Component {
             })
     }
 
+    addCollege(collegeId) {
+        console.log(this.state.collegeList);
+        if (this.state.collegeList.listOfColleges != null) {
+            this.state.collegeList.listOfColleges.push(collegeId);
+            this.collegeListService.addCollege(this.state.collegeList)
+                .then(() => {
+                    this.findCollegeListById(this.state.collegeListId);
+                })
+        }
+        else {
+            this.state.collegeList.listOfColleges = [];
+            this.state.collegeList.listOfColleges.push(collegeId);
+            this.collegeListService.addCollege(this.state.collegeList)
+                .then(() => {
+                    this.findCollegeListById(this.state.collegeListId);
+                })
+        }
+    }
+
     renderListOfColleges() {
         console.log(this.state.collegeList);
         if (this.state.collegeList.listOfColleges != null) {
@@ -90,7 +110,8 @@ export default class CollegeListPage extends React.Component {
         return (
             <div>
                 <h1>List of Colleges for {this.state.collegeList.name}</h1>
-                <CollegeListSearchPage collegeList={this.state.collegeList}/>
+                <CollegeListSearchPage collegeList={this.state.collegeList}
+                                       addCollege={this.addCollege}/>
                 {this.renderListOfColleges()}
             </div>);
     }

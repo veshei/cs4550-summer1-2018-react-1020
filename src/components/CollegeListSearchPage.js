@@ -59,7 +59,8 @@ export default class CollegeListSearchPage extends React.Component {
                     {this.state.isSearching && 'Searching for colleges...'}
                 </div>
                     <CollegeListSearchList collegesInfo={this.state.collegeResults}
-                                           collegeList={this.props.collegeList}/>
+                                           collegeList={this.props.collegeList}
+                                           addCollege={this.props.addCollege}/>
             </div>
         )
     }

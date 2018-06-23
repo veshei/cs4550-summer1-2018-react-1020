@@ -19,8 +19,8 @@ export default class CollegeListSearchListItem extends React.Component {
                 listOfColleges: [],
             },
         }
-        this.collegeListService = CollegeListService.instance;
-        this.addCollege = this.addCollege.bind(this);
+        // this.collegeListService = CollegeListService.instance;
+        // this.addCollege = this.addCollege.bind(this);
     };
 
     componentDidMount() {
@@ -41,7 +41,7 @@ export default class CollegeListSearchListItem extends React.Component {
         this.setState({collegeList: collegeList});
     }
 
-    addCollege(collegeId) {
+/*    addCollege(collegeId) {
         console.log(this.state.collegeList);
         if (this.state.collegeList.listOfColleges != null) {
             this.state.collegeList.listOfColleges.push(collegeId);
@@ -58,7 +58,7 @@ export default class CollegeListSearchListItem extends React.Component {
                     alert("fail");
                 })
         }
-    }
+    }*/
 
     render() {
         return (<li className="list-group-item">
@@ -70,7 +70,7 @@ export default class CollegeListSearchListItem extends React.Component {
         }}>{this.state.college.school.name}
         </Link>
         <button className="float-right btn btn-primary"
-                onClick={() => this.addCollege(this.state.college.id)}>
+                onClick={() => this.props.addCollege(this.state.college.id)}>
             Add College
         </button>
         </li>);
