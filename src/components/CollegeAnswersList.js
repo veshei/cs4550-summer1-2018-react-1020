@@ -82,6 +82,7 @@ export default class CollegeAnswersList extends React.Component {
             <div>{this.state.question.question}</div>
 
             <WriteAnswerComponent reloadAnswers={this.reloadAnswers}
+                                  history={this.props.history}
                                   questionId={this.state.questionId}/>
             <ul className="list-group">
                 {this.state.answers.map((answer, idx) => {
