@@ -67,6 +67,9 @@ export default class CollegeListPage extends React.Component {
                 .then(() => {
                     this.findCollegeListById(this.state.collegeListId);
                 })
+                .then(() => {
+                    window.location.reload();
+                })
         }
         else {
             this.state.collegeList.listOfColleges = [];
@@ -74,6 +77,9 @@ export default class CollegeListPage extends React.Component {
             this.collegeListService.addCollege(this.state.collegeList)
                 .then(() => {
                     this.findCollegeListById(this.state.collegeListId);
+                })
+                .then(() => {
+                    window.location.reload();
                 })
         }
     }
