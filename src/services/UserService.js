@@ -116,7 +116,7 @@ export default class UserService {
    * @returns {Promise<Response>} Returns the user if that username exists, null otherwise
    */
     findUserByUsername(username){
-        return fetch(LOCAL_URL + 'api/username/' + username)
+        return fetch(LOCAL_URL + '/api/username/' + username)
             .then(response => {
               if(response.status === 200){
                   console.log('response susccessful');
@@ -128,5 +128,87 @@ export default class UserService {
             }).catch(err => {
                 return null;
             })
+    }
+
+    /**
+     * Creates a new user but doesn't login that user in.
+     * @param newUser the new user
+     * @return the new user created on success, null on failure
+     */
+    createUser(newUser) {
+        return fetch(LOCAL_URL + '/api/user', {
+            method: 'POST',
+            body: JSON.stringify(newUser),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            return response.json();
+        })
+    }
+
+    /**
+     * Returns all users in the database.
+     * @return a list of all the users in the database
+     */
+    findAllUsers() {
+        return fetch(LOCAL_URL + '/api/user').then(response => {
+            return response.json();
+        });
+    }
+
+    /**
+     * Deletes the user of the given user id.
+     * @param userId the id of the user
+     */
+    deleteUserById(userId) {
+        return fetch(LOCAL_URL + '/api/user/' + userId, {
+            method: 'DELETE'
+        });
+    }
+
+    /**
+     * Returns a list of users that have a similar username to the one given.
+     * @param username
+     */
+    findUsersLikeUsername(username) {
+        return fetch(LOCAL_URL + '/api/user/' + username + '/similar').then(response => {
+            return response.json();
+        })
+    }
+
+    /**
+     * Returns the user of the given id.
+     * @param userId
+     */
+    findUserById(userId) {
+        return fetch(LOCAL_URL + '/api/user/' + userId).then(response => {
+            return response.json();
+        })
+    }
+
+    /**
+     * Updates the information of the user whose id is the given user id. The updated information is in the
+     * passed in user object.
+     * @param userId the id of the user
+     * @param updatedUser the updated user information
+     * @return the updated user on successful save, null on failure
+     */
+    updateUserById(userId, updatedUser) {
+        console.log(userId);
+        return fetch(LOCAL_URL + '/api/user/' + userId, {
+            method: 'PUT',
+            body: JSON.stringify(updatedUser),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            return response.text().then(text => {
+                if (text) {
+                    return JSON.parse(text);
+                }
+                return null;
+            })
+        })
     }
 }
