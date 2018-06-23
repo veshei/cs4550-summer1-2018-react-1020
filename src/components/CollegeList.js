@@ -20,6 +20,7 @@ export default class CollegeList extends React.Component {
             }
         };
         this.setName = this.setName.bind(this);
+        this.deleteCollegeList = this.deleteCollegeList.bind(this);
         this.collegeListService = CollegeListService.instance;
         this.userService = UserService.instance;
 
@@ -52,21 +53,30 @@ export default class CollegeList extends React.Component {
         console.log(this.state.collegeLists);
         let collegeLists = this.state.collegeLists.map((collegeList) => {
             return (<CollegeListItem key={collegeList.id}
-                                     collegeList={collegeList}/>)
+                                     collegeList={collegeList}
+                                     deleteCollegeList={this.deleteCollegeList}/>)
         });
         return (
             <ul className="list-group">{collegeLists}</ul>
         )
     }
 
-    setListOfCollegeLists(collegeLists) {
+    deleteCollegeList(collegeListId) {
+        this.collegeListService
+            .deleteCollegeList(collegeListId)
+            .then(() => {
+                this.findCollegeListForUser();
+            })
+    }
+
+    setCollegeLists(collegeLists) {
         this.setState({collegeLists: collegeLists})
     }
 
     findCollegeListForUser() {
-        this.collegeListService.findCollegeListForUser()
+        this.collegeListService.findCollegeListsForUser()
             .then(collegeLists => {
-                this.setListOfCollegeLists(collegeLists)
+                this.setCollegeLists(collegeLists)
             });
     }
 
@@ -76,7 +86,7 @@ export default class CollegeList extends React.Component {
         };
         this.collegeListService.createCollegeList(collegeList)
             .then(() => {
-                this.renderCollegeLists();
+                this.findCollegeListForUser();
             });
     }
 

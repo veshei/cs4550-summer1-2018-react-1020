@@ -32,7 +32,9 @@ export default class WriteReview extends React.Component {
                     collegeId: this.state.collegeId,
                 }
                 this.reviewService.createReview(review).then(review => {
-                    console.log(review);
+                    if (this.props.reloadReviews) {
+                        this.props.reloadReviews();
+                    }
                 });
             }
         });

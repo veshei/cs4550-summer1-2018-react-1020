@@ -15,8 +15,17 @@ export default class CollegeListService {
         return this[_singleton];
     }
 
-    updateCollegeList(collegeList) {
-        return fetch(LOCAL_URL + '/api/collegeList/' + collegeList.id, {
+    deleteCollegeList(collegeListId) {
+        return fetch(LOCAL_URL + '/api/collegeList/' + collegeListId, {
+            method: 'DELETE',
+            credentials: 'include'
+        }).then(response => {
+            return response;
+        });
+    }
+
+    addCollege(collegeList) {
+        return fetch(LOCAL_URL + '/api/addCollege/' + collegeList.id, {
             method: 'PUT',
             body: JSON.stringify(collegeList),
             headers: {
@@ -32,13 +41,39 @@ export default class CollegeListService {
         });
     }
 
-    findCollegeListForUser() {
+    deleteCollege(collegeList) {
+        return fetch(LOCAL_URL + '/api/deleteCollege/' + collegeList.id, {
+            method: 'PUT',
+            body: JSON.stringify(collegeList),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include'
+        }).then(function(response) {
+            if (response.ok) {
+                console.log(response);
+                return response.json();
+            }
+            return null;
+        });
+    }
+
+    findCollegeListById(collegeListId) {
+        return fetch(LOCAL_URL + '/api/collegeList/' + collegeListId)
+            .then(function(response) {
+            if (response.ok) {
+                return response.json();
+            }
+            return null;
+        });
+    }
+
+    findCollegeListsForUser() {
         return fetch(LOCAL_URL + '/api/user/collegeList', {
                 credentials: 'include'
             }
         ).then(function(response) {
             if (response.ok) {
-                console.log(response);
                 return response.json();
             }
             return null;

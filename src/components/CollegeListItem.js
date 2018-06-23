@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import CollegeListService from "../services/CollegeListService";
 
 export default class CollegeListItem extends React.Component {
     constructor(props) {
@@ -11,7 +12,8 @@ export default class CollegeListItem extends React.Component {
                 user: '',
                 listOfColleges: []
             }
-            }
+        };
+        this.collegeListService = CollegeListService.instance;
     };
 
     componentDidMount() {
@@ -22,6 +24,7 @@ export default class CollegeListItem extends React.Component {
         this.setState({collegeList: collegeList})
     }
 
+
     render() {
         return (
             <li className="list-group-item">
@@ -29,10 +32,13 @@ export default class CollegeListItem extends React.Component {
                 pathname: "/collegeList/" + this.state.collegeList.id,
                 state: {
                     collegeListId: this.state.collegeList.id,
-                    collegeList: this.state.collegeList
                 }
             }}>{this.state.collegeList.name}
             </Link>
+                <button className="float-right btn btn-danger"
+                        onClick={() => this.props.deleteCollegeList(this.state.collegeList.id)}>
+                    Delete College List
+                </button>
         </li>
         );
     }

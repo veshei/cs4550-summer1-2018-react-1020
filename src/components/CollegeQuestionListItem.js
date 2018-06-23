@@ -1,6 +1,7 @@
 import React from 'react';
 import './CollegeQuestionListItem.css';
 import {Link} from 'react-router-dom';
+import QuestionService from "../services/QuestionService";
 
 /**
  * An individual component for rendering question information in a question list.
@@ -19,6 +20,19 @@ export default class CollegeQuestionListItem extends React.Component {
                 }
             }
         };
+        this.questionService = QuestionService.instance;
+        this.deleteQuestion = this.deleteQuestion.bind(this);
+    }
+
+    /**
+     * Deletes this component's question
+     */
+    deleteQuestion() {
+        this.questionService.deleteQuestion(this.state.question.id).then(() => {
+            if (this.props.reloadQuestions) {
+                this.props.reloadQuestions();
+            }
+        })
     }
 
     /**
@@ -43,6 +57,9 @@ export default class CollegeQuestionListItem extends React.Component {
             <button type="button"
                     className="btn btn-primary float-right">See Answers</button>
             </Link>
+            <button type="button"
+                    className="btn btn-danger float-right"
+                    onClick={this.deleteQuestion}>Delete</button>
             <div className="question-title">{this.state.question.title}</div>
             <div>{this.state.question.user ? 'by ' + this.state.question.user.username : ''}</div>
             <div>{this.state.question.question}</div>
