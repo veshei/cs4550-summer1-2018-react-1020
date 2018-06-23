@@ -34,7 +34,8 @@ export default class CollegeListSearchList extends React.Component {
                     return (
                             <CollegeListSearchListItem college={college}
                                                        key={college.id}
-                                                       collegeList={this.props.collegeList}/>)
+                                                       collegeList={this.props.collegeList}
+                                                       addCollege={this.props.addCollege}/>)
                 })}
 
             </ul>)
