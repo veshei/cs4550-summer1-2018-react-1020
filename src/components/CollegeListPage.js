@@ -11,24 +11,51 @@ export default class CollegeListPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            collegeListId: '',
             collegeList: {
                 id: '',
                 name: '',
                 listOfColleges: [],
             }
         };
+        this.deleteCollege = this.deleteCollege.bind(this);
+        this.collegeListService = CollegeListService.instance;
+
     }
 
     componentDidMount() {
-        this.setCollegeList(this.props.history.location.state.collegeList);
+        this.setCollegeListId(this.props.history.location.state.collegeListId);
+        this.findCollegeListById(this.props.history.location.state.collegeListId);
     }
 
     componentWillReceiveProps(newProps) {
-        this.setCollegeList(newProps.collegeList);
+        this.setCollegeListId(newProps.collegeListId);
+        this.findCollegeListById(newProps.history.location.state.collegeListId);
+    }
+
+    setCollegeListId(collegeListId) {
+        this.setState({collegeListId: collegeListId});
     }
 
     setCollegeList(collegeList) {
-        this.setState({collegeList: collegeList});
+        this.setState({collegeList: collegeList})
+    }
+
+    findCollegeListById(collegeListId) {
+        this.collegeListService.findCollegeListById(collegeListId)
+            .then(collegeList => {
+                this.setCollegeList(collegeList);
+            });
+    }
+
+    deleteCollege(collegeId) {
+        const index = this.state.collegeList.listOfColleges.indexOf(collegeId);
+        this.state.collegeList.listOfColleges.splice(index, 1);
+        console.log(this.state.collegeList.listOfColleges);
+        this.collegeListService.deleteCollege(this.state.collegeList)
+            .then(() => {
+                this.findCollegeListById(this.state.collegeListId)
+            })
     }
 
     renderListOfColleges() {
@@ -39,7 +66,8 @@ export default class CollegeListPage extends React.Component {
                     {this.state.collegeList.listOfColleges.map(collegeId => {
                         return <CollegeListCollegeItem key={collegeId}
                                                        collegeId={collegeId}
-                                                       collegeList={this.state.collegeList}/>
+                                                       collegeList={this.state.collegeList}
+                                                       deleteCollege={this.deleteCollege}/>
                     })}
                 </ul>
             )
@@ -50,7 +78,8 @@ export default class CollegeListPage extends React.Component {
                 <ul className='list-group'>
                     {this.state.collegeList.listOfColleges.map(collegeId => {
                         return <CollegeListCollegeItem key={collegeId}
-                                                       collegeId={collegeId}/>
+                                                       collegeId={collegeId}
+                                                       deleteCollege={this.deleteCollege}/>
                     })}
                 </ul>
             )

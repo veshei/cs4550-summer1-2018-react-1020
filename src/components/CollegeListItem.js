@@ -32,7 +32,6 @@ export default class CollegeListItem extends React.Component {
                 pathname: "/collegeList/" + this.state.collegeList.id,
                 state: {
                     collegeListId: this.state.collegeList.id,
-                    collegeList: this.state.collegeList
                 }
             }}>{this.state.collegeList.name}
             </Link>

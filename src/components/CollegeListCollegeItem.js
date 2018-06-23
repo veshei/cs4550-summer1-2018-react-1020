@@ -21,7 +21,6 @@ export default class CollegeListCollegeItem extends React.Component {
             }
         };
         this.collegeService = CollegeService.instance;
-        this.collegeListService = CollegeListService.instance;
     }
 
     componentDidMount() {
@@ -51,22 +50,6 @@ export default class CollegeListCollegeItem extends React.Component {
         this.setState({collegeList: collegeList})
     }
 
-    deleteCollege(collegeId) {
-        const index = this.state.collegeList.listOfColleges.indexOf(collegeId);
-        this.state.collegeList.listOfColleges.splice(index, 1);
-        console.log(this.state.collegeList.listOfColleges);
-        this.collegeListService.deleteCollege(this.state.collegeList)
-            .then(collegeList => {
-                if (collegeList) {
-                    console.log(collegeList);
-                    alert("success");
-                }
-                else {
-                    alert("fail");
-                }
-            })
-    }
-
     render() {
         return (<li className="list-group-item">
             <Link to={{
@@ -77,7 +60,7 @@ export default class CollegeListCollegeItem extends React.Component {
             }}>{this.state.schoolInfo.school.name}
             </Link>
             <button className="float-right btn btn-danger"
-                    onClick={() => this.deleteCollege(this.state.collegeId)}>
+                    onClick={() => this.props.deleteCollege(this.state.collegeId)}>
                 Delete College List
             </button>
         </li>)

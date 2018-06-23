@@ -58,7 +58,17 @@ export default class CollegeListService {
         });
     }
 
-    findCollegeListForUser() {
+    findCollegeListById(collegeListId) {
+        return fetch(LOCAL_URL + '/api/collegeList/' + collegeListId)
+            .then(function(response) {
+            if (response.ok) {
+                return response.json();
+            }
+            return null;
+        });
+    }
+
+    findCollegeListsForUser() {
         return fetch(LOCAL_URL + '/api/user/collegeList', {
                 credentials: 'include'
             }
