@@ -32,7 +32,7 @@ export default class AdminDashboard extends React.Component {
             Create New User
         </button>
 
-        <AdminUserList/>
+        <AdminUserList history={this.props.history}/>
             </div>
         )
     }

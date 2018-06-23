@@ -176,4 +176,39 @@ export default class UserService {
             return response.json();
         })
     }
+
+    /**
+     * Returns the user of the given id.
+     * @param userId
+     */
+    findUserById(userId) {
+        return fetch(LOCAL_URL + '/api/user/' + userId).then(response => {
+            return response.json();
+        })
+    }
+
+    /**
+     * Updates the information of the user whose id is the given user id. The updated information is in the
+     * passed in user object.
+     * @param userId the id of the user
+     * @param updatedUser the updated user information
+     * @return the updated user on successful save, null on failure
+     */
+    updateUserById(userId, updatedUser) {
+        console.log(userId);
+        return fetch(LOCAL_URL + '/api/user/' + userId, {
+            method: 'PUT',
+            body: JSON.stringify(updatedUser),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            return response.text().then(text => {
+                if (text) {
+                    return JSON.parse(text);
+                }
+                return null;
+            })
+        })
+    }
 }

@@ -15,6 +15,7 @@ export default class AdminUserListItem extends React.Component {
         }
         this.userService = UserService.instance;
         this.deleteUser = this.deleteUser.bind(this);
+        this.navigateToEditUserProfile = this.navigateToEditUserProfile.bind(this);
     }
 
     /**
@@ -27,6 +28,14 @@ export default class AdminUserListItem extends React.Component {
                 this.props.reloadUsers();
             }
         })
+    }
+
+
+    /**
+     * Navigates to the page to edit a user's profile.
+     */
+    navigateToEditUserProfile() {
+        this.props.history.push('/admin/dashboard/user/' + this.state.user.id + '/edit');
     }
 
     componentDidMount() {
@@ -49,6 +58,7 @@ export default class AdminUserListItem extends React.Component {
                 Delete
             </button>
             <button type="button"
+                    onClick={this.navigateToEditUserProfile}
                     className="btn btn-primary float-right">
                 Edit
             </button>

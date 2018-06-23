@@ -72,6 +72,7 @@ export default class AdminUserList extends React.Component {
                 {this.state.users.map((user, idx) => {
                     return <AdminUserListItem user={user}
                                               reloadUsers={this.reloadUsers}
+                                              history={this.props.history}
                                               key={idx}/>
                 })}
             </ul>
