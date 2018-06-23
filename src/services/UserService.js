@@ -116,7 +116,7 @@ export default class UserService {
    * @returns {Promise<Response>} Returns the user if that username exists, null otherwise
    */
     findUserByUsername(username){
-        return fetch(LOCAL_URL + 'api/username/' + username)
+        return fetch(LOCAL_URL + '/api/username/' + username)
             .then(response => {
               if(response.status === 200){
                   console.log('response susccessful');
@@ -128,5 +128,22 @@ export default class UserService {
             }).catch(err => {
                 return null;
             })
+    }
+
+    /**
+     * Creates a new user but doesn't login that user in.
+     * @param newUser the new user
+     * @return the new user created on success, null on failure
+     */
+    createUser(newUser) {
+        return fetch(LOCAL_URL + '/api/user', {
+            method: 'POST',
+            body: JSON.stringify(newUser),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            return response.json();
+        })
     }
 }
