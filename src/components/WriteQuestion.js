@@ -1,5 +1,6 @@
 import React from 'react';
 import QuestionService from '../services/QuestionService';
+import UserService from '../services/UserService';
 
 /**
  * A component for writing a question about a college.
@@ -15,6 +16,7 @@ export default class WriteQuestion extends React.Component {
         this.formUpdate = this.formUpdate.bind(this);
         this.submitQuestion = this.submitQuestion.bind(this);
         this.questionService = QuestionService.instance;
+        this.userService = UserService.instance;
     }
 
     formUpdate(newFormUpdate) {
@@ -27,14 +29,23 @@ export default class WriteQuestion extends React.Component {
             title: questionTitle,
             question: questionBody,
         };
-        this.questionService.createQuestion(newQuestion).then(question => {
-            console.log(question);
-            // Reload the question list
-            console.log(this.props.reloadQuestions);
-            if (this.props.reloadQuestions) {
-                this.props.reloadQuestions();
+        // Check that the user is logged in before doing anything
+        this.userService.getProfile().then(user => {
+            if (user) {
+                this.questionService.createQuestion(newQuestion).then(question => {
+                    console.log(question);
+                    // Reload the question list
+                    console.log(this.props.reloadQuestions);
+                    if (this.props.reloadQuestions) {
+                        this.props.reloadQuestions();
+                    }
+                });
+            } else {
+                this.props.history.push('/login');
             }
-        });
+        })
+
+
     }
 
     componentWillReceiveProps(newProps) {

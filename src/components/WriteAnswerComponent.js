@@ -1,6 +1,7 @@
 import React from 'react';
 import AnswerService from "../services/AnswerService";
 import QuestionService from "../services/QuestionService";
+import UserService from '../services/UserService';
 
 export default class WriteAnswerComponent extends React.Component {
     constructor(props) {
@@ -15,6 +16,7 @@ export default class WriteAnswerComponent extends React.Component {
         this.submitAnswer = this.submitAnswer.bind(this);
         this.questionService = QuestionService.instance;
         this.answerService = AnswerService.instance;
+        this.userService = UserService.instance;
     }
 
     formUpdate(newFormUpdate) {
@@ -30,11 +32,18 @@ export default class WriteAnswerComponent extends React.Component {
             title: this.state.answerTitle,
             answer: this.state.answerBody
         }
-        this.answerService.createNewAnswer(this.state.questionId, newAnswer).then(answer => {
-            if (answer && this.props.reloadAnswers) {
-                this.props.reloadAnswers();
+        // Check that the user is logged in before trying to create a new answer
+        this.userService.getProfile().then(user => {
+            if (user) {
+                this.answerService.createNewAnswer(this.state.questionId, newAnswer).then(answer => {
+                    if (answer && this.props.reloadAnswers) {
+                        this.props.reloadAnswers();
+                    }
+                });
+            } else {
+                this.props.history.push('/login');
             }
-        });
+        })
     }
 
     componentDidMount() {

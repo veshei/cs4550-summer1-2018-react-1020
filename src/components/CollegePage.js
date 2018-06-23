@@ -146,23 +146,23 @@ export default class CollegePage extends React.Component {
     render() {
         return (
             <div className="container-fluid">
-            <div className="container col-8">
+                <div className="container col-8">
 
-              <div className="container-fluid col-12">
-              <h1>{this.state.school.name}</h1>
-              <h4>{this.state.school.city}, {this.state.school.state}</h4>
-              <h4><a href={"//" + this.state.school.school_url}>{this.state.school.school_url}</a></h4>
+                    <div className="container-fluid col-12">
+                        <h1>{this.state.school.name}</h1>
+                        <h4>{this.state.school.city}, {this.state.school.state}</h4>
+                        <h4><a href={"//" + this.state.school.school_url}>{this.state.school.school_url}</a></h4>
 
-              <div className="container-fluid list-group section-info border">
-                <li className="list-group-item active"><h4>Admissions Statistics</h4></li>
+                        <div className="container-fluid list-group section-info border">
+                            <li className="list-group-item active"><h4>Admissions Statistics</h4></li>
 
-                <div className="admission-rate-info col-3">
-                  <h3><span
-                      className="admission-rate-label">Admission Rate:</span> {(this.state.admissionsInfo.admissionRate * 100).toFixed(2)}%
-                  </h3>
-                </div>
-                <div>
-                  <div className="container">
+                            <div className="admission-rate-info col-3">
+                                <h3><span
+                                    className="admission-rate-label">Admission Rate:</span> {(this.state.admissionsInfo.admissionRate * 100).toFixed(2)}%
+                                </h3>
+                            </div>
+                            <div>
+                                <div className="container">
                                 <span className="score-info-left list-group col-6">
                                     <li className="list-group-item active"><h5>ACT Scores</h5></li>
                                     <li className="list-group-item act-card">
@@ -185,7 +185,7 @@ export default class CollegePage extends React.Component {
                                     </li>
                                 </span>
 
-                    <span className="score-info list-group col-6">
+                                    <span className="score-info list-group col-6">
                                     <li className="list-group-item active"><h5>SAT Scores</h5></li>
                                     <li className="list-group-item">
                                         <div className="container specific-score-info">
@@ -207,13 +207,13 @@ export default class CollegePage extends React.Component {
                                         </div>
                                     </li>
                                 </span>
-                  </div>
-                </div>
-              </div>
+                                </div>
+                            </div>
+                        </div>
 
-              <div className="container-fluid list-group section-info border">
-                <li className="list-group-item active"><h4>Demographics</h4></li>
-                <div className="container">
+                        <div className="container-fluid list-group section-info border">
+                            <li className="list-group-item active"><h4>Demographics</h4></li>
+                            <div className="container">
                               <span className="demographic-info-left list-group col-6">
                                 <li className="list-group-item active"><h6>Race Demographics</h6></li>
                                     <li className="list-group-item">Percent White: {(this.state.raceInfo.white * 100).toFixed(2)}%</li>
@@ -223,46 +223,49 @@ export default class CollegePage extends React.Component {
                                     <li className="list-group-item">Percent Mixed: {(this.state.raceInfo.two_or_more * 100).toFixed(2)}%</li>
                                     <li className="list-group-item">Percent Unknown: {(this.state.raceInfo.unknown * 100).toFixed(2)}%</li>
                             </span>
-                  <span className="demographic-info list-group col-6">
+                                <span className="demographic-info list-group col-6">
                                 <li className="list-group-item active"><h6>Male-Female Ratio</h6></li>
                                         <li className="list-group-item">Percent Male: {(this.state.genderInfo.male * 100).toFixed(2)}%</li>
                                         <li className="list-group-item">Percent Female: {(this.state.genderInfo.female * 100).toFixed(2)}%</li>
                             </span>
+                            </div>
+                        </div>
+
+                        <div className="container-fluid list-group section-info border">
+                            <li className="list-group-item active"><h4>Financial Information</h4></li>
+                            <li className="list-group-item">In-state tuition:
+                                ${this.state.financialInfo.inStateTuition}</li>
+                            <li className="list-group-item">Out-of-state tuition:
+                                ${this.state.financialInfo.outOfStateTuition}</li>
+                            <li className="list-group-item">Private average net price:
+                                ${this.state.financialInfo.privateAverageNetPrice}</li>
+                            {this.state.financialInfo.publicAverageNetPrice
+                            && <li className="list-group-item">Public average net price:
+                                ${this.state.financialInfo.publicAverageNetPrice}</li>}
+                            <li className="list-group-item">Median debt: ${this.state.financialInfo.medianDebt}</li>
+                            <li className="list-group-item">Percentage of Pell Grant
+                                recipients: {(this.state.financialInfo.percentagePellGrant * 100).toFixed(2)}%
+                            </li>
+                        </div>
+
+                        <div className="container-fluid list-group section-info border">
+                            <li className="list-group-item active"><h4>Academic Information</h4></li>
+                            <li className="list-group-item">4-year graduation
+                                rate: {this.state.completionInfo['4YearGraduationRate']}</li>
+                            <li className="list-group-item">Associate's Degree Available:
+                                {this.state.academicsInfo.hasAssociate ? ' Yes' : ' No'}</li>
+                            <li className="list-group-item">Bachelor's Degree Available:
+                                {this.state.academicsInfo.hasBachelor ? ' Yes' : ' No'}</li>
+                        </div>
+                        <div className="user-section">
+                            <CollegeReviewList collegeId={this.state.collegeId}
+                                               history={this.props.history}/>
+                            <CollegeQuestionList collegeId={this.state.collegeId}
+                                                 history={this.props.history}/>
+                        </div>
+                    </div>
+
                 </div>
-              </div>
-
-              <div className="container-fluid list-group section-info border">
-                <li className="list-group-item active"><h4>Financial Information</h4></li>
-                <li className="list-group-item">In-state tuition: ${this.state.financialInfo.inStateTuition}</li>
-                <li className="list-group-item">Out-of-state tuition:
-                  ${this.state.financialInfo.outOfStateTuition}</li>
-                <li className="list-group-item">Private average net price:
-                  ${this.state.financialInfo.privateAverageNetPrice}</li>
-                {this.state.financialInfo.publicAverageNetPrice
-                && <li className="list-group-item">Public average net price:
-                  ${this.state.financialInfo.publicAverageNetPrice}</li>}
-                <li className="list-group-item">Median debt: ${this.state.financialInfo.medianDebt}</li>
-                <li className="list-group-item">Percentage of Pell Grant
-                  recipients: {(this.state.financialInfo.percentagePellGrant * 100).toFixed(2)}%
-                </li>
-              </div>
-
-              <div className="container-fluid list-group section-info border">
-                <li className="list-group-item active"><h4>Academic Information</h4></li>
-                <li className="list-group-item">4-year graduation
-                  rate: {this.state.completionInfo['4YearGraduationRate']}</li>
-                <li className="list-group-item">Associate's Degree Available:
-                  {this.state.academicsInfo.hasAssociate ? ' Yes' : ' No'}</li>
-                <li className="list-group-item">Bachelor's Degree Available:
-                  {this.state.academicsInfo.hasBachelor ? ' Yes' : ' No'}</li>
-              </div>
-                <div className="user-section">
-                  <CollegeReviewList collegeId={this.state.collegeId}/>
-                  <CollegeQuestionList collegeId={this.state.collegeId}/>
-                </div>
-            </div>
-
-            </div>
             </div>
         )
     }

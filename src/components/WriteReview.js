@@ -36,6 +36,8 @@ export default class WriteReview extends React.Component {
                         this.props.reloadReviews();
                     }
                 });
+            } else {
+                this.props.history.push('/login');
             }
         });
     }
