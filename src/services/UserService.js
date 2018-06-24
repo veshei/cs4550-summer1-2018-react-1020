@@ -238,4 +238,72 @@ export default class UserService {
             })
         })
     }
+
+    findParentForStudent(studentId) {
+        return fetch(LOCAL_URL + '/api/student/' + studentId + '/parent').then(response => {
+            return response.text().then(text => {
+                if (text) {
+                    return JSON.parse(text);
+                }
+                return null;
+            })
+        })
+    }
+
+    findCounselorForStudent(studentId) {
+        return fetch(LOCAL_URL + '/api/student/' + studentId + '/counselor').then(response => {
+            return response.text().then(text => {
+                if (text) {
+                    return JSON.parse(text);
+                }
+                return null;
+            })
+        })
+    }
+
+    findCounselorsForParent(parentId) {
+        return fetch(LOCAL_URL + '/api/parent/' + parentId + '/counselor').then(response => {
+            return response.json();
+        });
+    }
+
+    createStudentParentRelation(studentId, parentId) {
+        return fetch(LOCAL_URL + '/api/student/' + studentId + '/parent/' + parentId, {
+            method: 'POST'
+        }).then(response => {
+            if (response.ok) {
+                return 'ok';
+            }
+        }).catch(err => {
+            return 'not ok'
+        });
+    }
+
+    createStudentCounselorRelation(studentId, counselorId) {
+        return fetch(LOCAL_URL + '/api/student/' + studentId + '/counselor/' + counselorId, {
+            method: 'POST'
+        }).then(response => {
+            if (response.ok) {
+                return 'ok';
+            } else {
+                return 'not ok';
+            }
+        }).catch(err => {
+            return 'not ok';
+        });
+    }
+
+    createParentCounselorRelation(parentId, counselorId) {
+        return fetch(LOCAL_URL + '/api/parent/' + parentId + '/counselor/' + counselorId, {
+            method: 'POST'
+        }).then(response => {
+            if (response.ok) {
+                return 'ok'
+            } else {
+                return 'not ok';
+            }
+        }).catch(err => {
+            return 'not ok';
+        });
+    }
 }

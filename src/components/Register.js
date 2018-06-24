@@ -110,8 +110,8 @@ export default class Register extends React.Component {
               firstName: this.state.firstName,
               lastName: this.state.lastName,
               role: this.state.role,
-              dateOfBirth: this.state.dateOfBirth
-
+              dateOfBirth: this.state.dateOfBirth,
+              collegeLists: []
             };
 
           this.userService.register(credentials).then(user => {

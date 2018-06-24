@@ -17,6 +17,10 @@ export default class UserListItem extends React.Component {
         this.setState({user: this.props.user});
     }
 
+    componentWillReceiveProps(newProps) {
+        this.setState({user: newProps.user});
+    }
+
     render() {
         return (<li className="list-group-item">
             <span className="col-2 float-left">{this.state.user.username}</span>
