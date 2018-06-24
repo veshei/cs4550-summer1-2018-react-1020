@@ -76,7 +76,12 @@ export default class CollegeList extends React.Component {
     findCollegeListForUser() {
         this.collegeListService.findCollegeListsForUser()
             .then(collegeLists => {
-                this.setCollegeLists(collegeLists)
+                if (collegeLists) {
+                    this.setCollegeLists(collegeLists)
+                }
+                else {
+                    this.setCollegeLists([]);
+                }
             });
     }
 

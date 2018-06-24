@@ -48,7 +48,7 @@ export default class NavBar extends React.Component {
         return (
             <div>
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <a className="navbar-brand" href="/">College Counsel</a>
+                    <a className="navbar-brand" href="/">College Database</a>
                     <div className="navbar-collapse">
                         {!this.state.user.username ?
                             <ul className="navbar-nav mr-auto">
