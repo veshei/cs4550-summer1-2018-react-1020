@@ -356,7 +356,7 @@ export default class CollegePage extends React.Component {
             </div>
 
               <div className="container col-6 ">
-                <div>
+                <div style={{width:'50%'}}>
                 {this.generateRecommendationsColumn()}
                 <div className="user-section">
                   <CollegeReviewList collegeId={this.state.collegeId}/>
