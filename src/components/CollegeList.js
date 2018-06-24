@@ -1,6 +1,5 @@
 import React from 'react';
 import CollegeListService from "../services/CollegeListService";
-import CollegeListSearchPage from "./CollegeListSearchPage";
 import CollegeListItem from "./CollegeListItem";
 import UserService from "../services/UserService";
 
@@ -50,7 +49,6 @@ export default class CollegeList extends React.Component {
     }
 
     renderCollegeLists() {
-        console.log(this.state.collegeLists);
         let collegeLists = this.state.collegeLists.map((collegeList) => {
             return (<CollegeListItem key={collegeList.id}
                                      collegeList={collegeList}
@@ -76,7 +74,12 @@ export default class CollegeList extends React.Component {
     findCollegeListForUser() {
         this.collegeListService.findCollegeListsForUser()
             .then(collegeLists => {
-                this.setCollegeLists(collegeLists)
+                if (collegeLists) {
+                    this.setCollegeLists(collegeLists)
+                }
+                else {
+                    this.setCollegeLists([]);
+                }
             });
     }
 
@@ -98,13 +101,11 @@ export default class CollegeList extends React.Component {
                        placeholder="Name of college list"
                        value={this.state.name}
                        onChange={this.setName}/>
-                {console.log(this.state.name)}
                 <button className="btn btn-primary btn-block"
                         onClick={() => this.createCollegeList()}>
                     Submit name
                 </button>
                 <li className='list-group-item'>
-                    {console.log(this.state.collegeLists)}
                     {this.renderCollegeLists()}
                     </li>
             </div>);

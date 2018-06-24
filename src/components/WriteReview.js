@@ -65,7 +65,7 @@ export default class WriteReview extends React.Component {
     render() {
         return (
             <div className="form-group list-group writing-review">
-                <span className="list-group-item active"><h5>Writing review for {this.state.collegeId}</h5></span>
+                <span className="list-group-item active" style={{backgroundColor:'black'}}><h5>Writing review for {this.state.collegeId}</h5></span>
                 <input type="text"
                        placeholder="Title"
                        onChange={(event) => this.formUpdate({reviewTitle: event.target.value})}
@@ -83,7 +83,7 @@ export default class WriteReview extends React.Component {
                 <button type="button" onClick={() => {
                     this.submitReview(this.state.reviewTitle, this.state.reviewBody)
                 }}
-                className="btn btn-primary col-2">
+                className="btn btn-primary">
                     Create Review
                 </button>
             </div>

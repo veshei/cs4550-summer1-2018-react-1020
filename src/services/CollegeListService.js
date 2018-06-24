@@ -72,12 +72,14 @@ export default class CollegeListService {
         return fetch(HEROKU_URL + '/api/user/collegeList', {
                 credentials: 'include'
             }
-        ).then(function(response) {
-            if (response.ok) {
-                return response.json();
-            }
-            return null;
-        });
+        ).then(response => {
+            return response.text().then(text => {
+                if (text) {
+                    return JSON.parse(text);
+                }
+                return null;
+            })
+        })
     }
 
     createCollegeList(collegeList) {
