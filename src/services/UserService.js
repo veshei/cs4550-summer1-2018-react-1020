@@ -45,7 +45,17 @@ export default class UserService {
      * @return the user, if registration is successful
      */
     register(credentials) {
-        return fetch(LOCAL_URL + '/api/register', {
+        let role = "";
+        if(credentials.role === 'STUDENT'){
+            role = 'student';
+        }
+        else if(credentials.role === 'PARENT'){
+          role = 'parent';
+        }
+        else if(credentials.role === 'COLLEGE_COUNSELOR'){
+          role = 'college_counselor';
+        }
+        return fetch(LOCAL_URL + '/api/register/' + role, {
             method: 'POST',
             body: JSON.stringify(credentials),
             headers: {
@@ -130,6 +140,20 @@ export default class UserService {
             })
     }
 
+    //Finds all users
+    findAllUsers() {
+      return fetch(LOCAL_URL + '/api/user', {
+            credentials: 'include'
+          }
+      ).then(response => {
+        return response.text().then(text => {
+          if (text) {
+            return JSON.parse(text);
+          }
+          return null;
+        })
+      })
+    }
     /**
      * Creates a new user but doesn't login that user in.
      * @param newUser the new user

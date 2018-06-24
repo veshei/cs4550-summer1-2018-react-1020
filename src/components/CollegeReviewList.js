@@ -52,7 +52,8 @@ export default class CollegeReviewList extends React.Component {
             <WriteReview collegeId={this.props.collegeId}
                          history={this.props.history}
                         reloadReviews={this.reloadReviews}/>
-            <h5 className="list-group-item active">Reviews</h5>
+            <br/>
+            <h5 className="list-group-item active" style={{backgroundColor:'black'}}>Reviews</h5>
                 {this.state.reviews.map((review, idx) => {
                     return <CollegeReviewListItem collegeId={this.props.collegeId}
                                                   review={review}

@@ -4,6 +4,8 @@ import CollegeReviewList from './CollegeReviewList';
 import WriteReview from "./WriteReview";
 import CollegeQuestionList from "./CollegeQuestionList";
 import './CollegePage.css';
+import UserService from "../services/UserService";
+import RecommendationService from "../services/RecommendationService";
 
 /**
  * A component for rendering college information for a particular college.
@@ -13,7 +15,12 @@ export default class CollegePage extends React.Component {
         // Required props: collegeId, can be passed through url
         super(props);
         this.state = {
+            user: undefined,
+            selectedStudent: undefined,
+            recommendationTitle: '',
+            recommendationDesc: '',
             collegeId: '',
+            listOfStudents:[],
             schoolInfo: {}, // information that includes the school and yearly statistics
             school: {}, // information about the school
             raceInfo: {},
@@ -67,6 +74,8 @@ export default class CollegePage extends React.Component {
             }
         };
         this.collegeService = CollegeService.instance;
+        this.userService = UserService.instance;
+        this.recommendationService = RecommendationService.instance;
     }
 
     componentDidMount() {
@@ -77,12 +86,10 @@ export default class CollegePage extends React.Component {
         if (!collegeId) { // If not passed in as a prop. get from the url
             collegeId = this.props.match.params['collegeId'];
         }
+        this.setState({collegeId});
         this.collegeService.searchCollegeInfoById(collegeId).then(schoolJSON => {
             let schoolInfo = schoolJSON.results[0];
-            console.log(schoolInfo['2015']);
-            console.log(schoolInfo);
             this.setState({
-                collegeId: collegeId,
                 schoolInfo: schoolInfo,
                 school: schoolInfo.school,
                 raceInfo: schoolInfo['2015'].student.demographics.race_ethnicity,
@@ -137,16 +144,101 @@ export default class CollegePage extends React.Component {
                 }
             });
         });
+
+        this.userService.findAllUsers().then(response =>{
+          let listOfStudents = [];
+          response.map((student) => {
+            if (student.role === 'STUDENT') {
+              listOfStudents.push(student);
+            }
+          });
+          this.setState({listOfStudents: listOfStudents})
+          this.setState({selectedStudent: listOfStudents[0]})
+        });
+
+        this.getLoggedInUser();
+    };
+
+    /**
+     * Gets the logged in user and sets the state's user to it.
+     */
+    getLoggedInUser() {
+      this.userService.getProfile().then(user => {
+        if (user) {
+          this.setState({user: user});
+        }
+      })
     }
 
-    addCollegeToList() {
+    createRecommendation(){
+      if(this.state.recommendationTitle.length <= 0){
+        alert('Please include a title for your recommendation');
+      }
+      else if(this.state.recommendationTitle.length <= 0){
+        alert('Please include a description for your recommendation');
+      }
+      else{
+        let recommendation = {
+          title: this.state.recommendationTitle,
+          description: this.state.recommendationDesc,
+          collegeId: this.state.collegeId,
+          student: this.state.selectedStudent
+        };
+        this.recommendationService.createRecommendation(recommendation);
+        alert('Recommendation Created!');
+
+      }
+    }
+    generateRecommendationsColumn(){
+      if(this.state.user !== undefined){
+        if(this.state.user.role !== 'STUDENT'){
+          return(
+              <div>
+                <h1>Recommend To A Student</h1>
+                <hr/>
+                <label><h6>Title</h6></label>
+                <br/>
+                <input type="text"
+                       style={{paddingLeft:'5px'}}
+                       className="registerBox"
+                       placeholder="Title"
+                       onChange={(event) => this.setState({recommendationTitle:event.target.value})}/>
+                <br/>
+                <label><h6>Description</h6></label>
+                <br/>
+                <input type="text"
+                       style={{paddingLeft:'5px'}}
+                       className="registerBox"
+                       placeholder="Description"
+                       onChange={(event) => this.setState({recommendationDesc:event.target.value})}/>
+                <br/>
+                <label>Student</label>
+                <br/>
+                <select className="registerBox" onChange={(event) =>
+                {this.setState({selectedStudent:this.state.listOfStudents[event.target.value]})}}>
+                  {this.state.listOfStudents.map((student,index) =>{
+                    return(<option key={index} value={index} label={student.username}/>)
+                  })}
+                </select>
+                <br/>
+                <button type="button"
+                        className="btn btn-primary btn-block"
+                        onClick={() => {this.createRecommendation()}}>Recommend</button>
+
+              </div>
+          )
+
+        }
+      }
+
 
     }
 
     render() {
         return (
-            <div className="container-fluid">
-                <div className="container col-8">
+
+            <div className="container">
+            <div className="container col-8">
 
                     <div className="container-fluid col-12">
                         <h1>{this.state.school.name}</h1>
@@ -248,24 +340,34 @@ export default class CollegePage extends React.Component {
                             </li>
                         </div>
 
-                        <div className="container-fluid list-group section-info border">
-                            <li className="list-group-item active"><h4>Academic Information</h4></li>
-                            <li className="list-group-item">4-year graduation
-                                rate: {this.state.completionInfo['4YearGraduationRate']}</li>
-                            <li className="list-group-item">Associate's Degree Available:
-                                {this.state.academicsInfo.hasAssociate ? ' Yes' : ' No'}</li>
-                            <li className="list-group-item">Bachelor's Degree Available:
-                                {this.state.academicsInfo.hasBachelor ? ' Yes' : ' No'}</li>
-                        </div>
-                        <div className="user-section">
-                            <CollegeReviewList collegeId={this.state.collegeId}
-                                               history={this.props.history}/>
-                            <CollegeQuestionList collegeId={this.state.collegeId}
-                                                 history={this.props.history}/>
-                        </div>
-                    </div>
+              <div className="container-fluid list-group section-info border">
+                <li className="list-group-item active"><h4>Academic Information</h4></li>
+                <li className="list-group-item">4-year graduation
+                  rate: {this.state.completionInfo['4YearGraduationRate']}</li>
+                <li className="list-group-item">Associate's Degree Available:
+                  {this.state.academicsInfo.hasAssociate ? ' Yes' : ' No'}</li>
+                <li className="list-group-item">Bachelor's Degree Available:
+                  {this.state.academicsInfo.hasBachelor ? ' Yes' : ' No'}</li>
+              </div>
+
+            </div>
+
+
+            </div>
+
+              <div className="container col-6 ">
+                <div>
+                {this.generateRecommendationsColumn()}
+                <div className="user-section">
+                  <CollegeReviewList collegeId={this.state.collegeId}/>
+                  <CollegeQuestionList collegeId={this.state.collegeId}
+                                       history={this.props.history}/>
+                </div>
+
 
                 </div>
+              </div>
+
             </div>
         )
     }

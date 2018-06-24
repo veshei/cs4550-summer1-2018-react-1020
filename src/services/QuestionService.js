@@ -25,7 +25,7 @@ export default class QuestionService {
      * @return the list of all questions for the college
      */
     findQuestionsForCollege(collegeId) {
-        return fetch(LOCAL_URL + '/api/question/college/' + collegeId).then(response => {
+        return fetch(HEROKU_URL + '/api/question/college/' + collegeId).then(response => {
             return response.json();
         })
     }
@@ -36,7 +36,7 @@ export default class QuestionService {
      * @return the question created on success, null on failure
      */
     createQuestion(question) {
-        return fetch(LOCAL_URL + '/api/user/question', {
+        return fetch(HEROKU_URL + '/api/user/question', {
             method: 'POST',
             body: JSON.stringify(question),
             headers: {
@@ -59,7 +59,7 @@ export default class QuestionService {
      * @return the question of the given question id
      */
     findQuestionById(questionId) {
-        return fetch(LOCAL_URL + '/api/question/' + questionId).then(response => {
+        return fetch(HEROKU_URL + '/api/question/' + questionId).then(response => {
             return response.json();
         })
     }
