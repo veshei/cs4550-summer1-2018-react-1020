@@ -1,31 +1,63 @@
 import React from 'react';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+import UserService from "../services/UserService";
 
 
-const AccountSideBar= () => {
-    return (
-        <div className="wrapper" style={{ width:'75%'}}>
-            <nav id="sidebar" >
-                <div className="sidebar-header">
-                    <h3>Sidebar</h3>
-                </div>
+export default class AccountSideBar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: {
+                username: '',
+                password: '',
+                firstName: '',
+                lastName: '',
+                dateOfBirth: '',
+                role: ''
+            }
+        };
+        this.getProfile = this.getProfile.bind(this);
+        this.userService = UserService.instance;
+    }
 
-                <img src="https://image.freepik.com/free-icon/user-image-with-black-background_318-34564.jpg"
-                     style={{width:'100px',height:'100x',margin:'20%',
-                     boxShadow:'5px 5px 5px 5px'}}/>
-                Sample User
-                <ul style={{padding:"0px"}}>
-                    <li className="list-group-item items">Home</li>
-                    <li className="list-group-item items">Home1</li>
-                    <li className="list-group-item items">Home2</li>
-                    <li className="list-group-item items">Home3</li>
+    getProfile() {
+        this.userService.getProfile().then(user => {
+            if (user) {
+                this.setUser(user);
+            }
+        })
+    }
 
-                </ul>
-            </nav>
+    setUser(user) {
+        this.setState({user: user});
+    }
 
-        </div>)
+    componentDidMount() {
+        this.getProfile();
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.getProfile();
+    }
+
+    render() {
+        return (
+            <div className="wrapper" style={{width: '75%'}}>
+                <nav id="sidebar">
+                    <div className="sidebar-header">
+                        <h4>Welcome {this.state.user.firstName} {this.state.user.lastName}!</h4>
+                    </div>
+                    <ul style={{padding: "0px"}}
+                        className="list-group">
+                        <li className="list-group-item">Username: {this.state.user.username}</li>
+                        <li className="list-group-item">Date of Birth: {this.state.user.dateOfBirth.split("T", 1)}</li>
+                        <li className="list-group-item">Role: {this.state.user.role}</li>
+
+                    </ul>
+                </nav>
+
+            </div>)
+    }
 };
 
-
-export default AccountSideBar
