@@ -90,7 +90,7 @@ export default class ViewOnlyUserProfile extends React.Component {
                             console.log(responseString);
                         });
                 } else {
-                    alert('You already have a counselor added!');
+                    alert('You already have a parent added!');
                 }
             })
 
