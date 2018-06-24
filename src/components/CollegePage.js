@@ -185,6 +185,7 @@ export default class CollegePage extends React.Component {
           student: this.state.selectedStudent
         };
         this.recommendationService.createRecommendation(recommendation);
+        alert('Recommendation Created!');
 
       }
     }
@@ -348,20 +349,25 @@ export default class CollegePage extends React.Component {
                 <li className="list-group-item">Bachelor's Degree Available:
                   {this.state.academicsInfo.hasBachelor ? ' Yes' : ' No'}</li>
               </div>
-                <div className="user-section">
-                  <CollegeReviewList collegeId={this.state.collegeId}/>
-                  <CollegeQuestionList collegeId={this.state.collegeId}
-                                       history={this.props.history}/>
 
-                </div>
             </div>
 
 
             </div>
 
               <div className="container col-6 ">
+                <div>
                 {this.generateRecommendationsColumn()}
+                <div className="user-section">
+                  <CollegeReviewList collegeId={this.state.collegeId}/>
+                  <CollegeQuestionList collegeId={this.state.collegeId}
+                                       history={this.props.history}/>
+                </div>
+
+
+                </div>
               </div>
+
             </div>
         )
     }

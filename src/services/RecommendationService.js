@@ -23,7 +23,9 @@ export default class RecommendationService {
    * Finds all recommendations for the college of the given id.
    */
   findRecommendationsForStudent() {
-    return fetch(HEROKU_URL + '/api/student/recommendation').then(response => {
+    return fetch(LOCAL_URL + '/api/student/recommendations', {
+      credentials: 'include'
+    }).then(response => {
       return response.text().then(text => {
         if (text) {
           return JSON.parse(text);
@@ -40,7 +42,7 @@ export default class RecommendationService {
    * @return the recommendation created on success, null on failure
    */
   createRecommendation(recommendation) {
-    return fetch(HEROKU_URL + '/api/user/recommendation', {
+    return fetch(LOCAL_URL + '/api/user/recommendation', {
       method: 'POST',
       body: JSON.stringify(recommendation),
       headers: {
@@ -62,7 +64,7 @@ export default class RecommendationService {
    * @param recommendationId the id of the recommendation
    */
   deleteRecommendation(recommendationId) {
-    return fetch(HEROKU_URL + '/api/recommendation/' + recommendationId, {
+    return fetch(LOCAL_URL + '/api/recommendation/' + recommendationId, {
       method: 'DELETE',
       credentials: 'include'
     });
