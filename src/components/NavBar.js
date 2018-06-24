@@ -73,6 +73,9 @@ export default class NavBar extends React.Component {
                                 <li className="nav-item">
                                     <a className="nav-link" href="/collegeList">College List</a>
                                 </li>
+                                <li>
+                                    <a className="nav-link" href="search/user">Search Users</a>
+                                </li>
                                 <li className="nav-item">
                                     {this.state.user.role === 'ADMIN' &&
                                     <a className="nav-link" href="/admin/dashboard">Admin Dashboard</a>}
