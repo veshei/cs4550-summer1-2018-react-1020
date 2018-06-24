@@ -66,6 +66,8 @@ export default class Register extends React.Component {
         }
         else if(newRole=== 'College Counselor'){
             this.setState({role: 'COLLEGE_COUNSELOR'})
+        } else if (newRole === 'Admin') {
+            this.setState({role: 'ADMIN'});
         }
     }
 
@@ -286,6 +288,7 @@ export default class Register extends React.Component {
                   <option>Student</option>
                   <option>Parent</option>
                   <option>College Counselor</option>
+                  <option>Admin</option>
               </select>
               <br/>
               <button type="button"

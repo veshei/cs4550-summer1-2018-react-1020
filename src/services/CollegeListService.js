@@ -16,7 +16,7 @@ export default class CollegeListService {
     }
 
     deleteCollegeList(collegeListId) {
-        return fetch(HEROKU_URL + '/api/collegeList/' + collegeListId, {
+        return fetch(LOCAL_URL + '/api/collegeList/' + collegeListId, {
             method: 'DELETE',
             credentials: 'include'
         }).then(response => {
@@ -25,7 +25,7 @@ export default class CollegeListService {
     }
 
     addCollege(collegeList) {
-        return fetch(HEROKU_URL + '/api/addCollege/' + collegeList.id, {
+        return fetch(LOCAL_URL + '/api/addCollege/' + collegeList.id, {
             method: 'PUT',
             body: JSON.stringify(collegeList),
             headers: {
@@ -42,7 +42,7 @@ export default class CollegeListService {
     }
 
     deleteCollege(collegeList) {
-        return fetch(HEROKU_URL + '/api/deleteCollege/' + collegeList.id, {
+        return fetch(LOCAL_URL + '/api/deleteCollege/' + collegeList.id, {
             method: 'PUT',
             body: JSON.stringify(collegeList),
             headers: {
@@ -59,7 +59,7 @@ export default class CollegeListService {
     }
 
     findCollegeListById(collegeListId) {
-        return fetch(HEROKU_URL + '/api/collegeList/' + collegeListId)
+        return fetch(LOCAL_URL + '/api/collegeList/' + collegeListId)
             .then(function(response) {
             if (response.ok) {
                 return response.json();
@@ -69,7 +69,7 @@ export default class CollegeListService {
     }
 
     findCollegeListsForUser() {
-        return fetch(HEROKU_URL + '/api/user/collegeList', {
+        return fetch(LOCAL_URL + '/api/user/collegeList', {
                 credentials: 'include'
             }
         ).then(function(response) {
@@ -81,7 +81,7 @@ export default class CollegeListService {
     }
 
     createCollegeList(collegeList) {
-        return fetch(HEROKU_URL + '/api/user/collegeList', {
+        return fetch(LOCAL_URL + '/api/user/collegeList', {
             method: 'POST',
             body: JSON.stringify(collegeList),
             headers: {
