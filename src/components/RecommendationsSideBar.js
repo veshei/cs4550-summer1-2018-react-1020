@@ -28,7 +28,7 @@ export default class RecommendationSideBar extends React.Component {
    * Gets the logged in user and sets the state's user to it.
    */
   initialize() {
-    this.setState({showRecs:false})
+    this.setState({showRecs:false});
     this.userService.getProfile().then(user => {
       if (user) {
         this.setState({user: user});
@@ -89,15 +89,25 @@ export default class RecommendationSideBar extends React.Component {
 
 
 
+  toRender(){
+    if(this.state.user === undefined || this.state.user.role !== 'STUDENT'){
+      return (<div></div>)
+    }
+    else{
+      return (
+          <div>
+            <h3>Recommendations</h3>
+            <hr/>
+            {this.showRecommendations()}
+          </div>
+      )
 
+    }
+  }
 
   render() {
     return (
-        <div>
-          <h3>Recommendations</h3>
-          <hr/>
-          {this.showRecommendations()}
-        </div>
+        this.toRender()
       )
     }
 
