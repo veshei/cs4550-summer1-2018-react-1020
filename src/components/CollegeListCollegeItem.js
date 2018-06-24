@@ -61,7 +61,7 @@ export default class CollegeListCollegeItem extends React.Component {
             </Link>
             <button className="float-right btn btn-danger"
                     onClick={() => this.props.deleteCollege(this.state.collegeId)}>
-                Delete College List
+                Delete College
             </button>
         </li>)
     }

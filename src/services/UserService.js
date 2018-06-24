@@ -143,6 +143,20 @@ export default class UserService {
             })
     }
 
+    //Finds all users
+    findAllUsers() {
+      return fetch(LOCAL_URL + '/api/user', {
+            credentials: 'include'
+          }
+      ).then(response => {
+        return response.text().then(text => {
+          if (text) {
+            return JSON.parse(text);
+          }
+          return null;
+        })
+      })
+    }
     /**
      * Creates a new user but doesn't login that user in.
      * @param newUser the new user
