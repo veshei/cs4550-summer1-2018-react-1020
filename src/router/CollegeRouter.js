@@ -13,6 +13,8 @@ import CollegeAnswersList from '../components/CollegeAnswersList';
 import AdminDashboard from "../components/AdminDashboard";
 import CreateNewUserForm from "../components/CreateNewUserForm";
 import AdminEditUserProfile from '../components/AdminEditUserProfile';
+import SearchUser from '../components/SearchUser';
+import ViewOnlyUserProfile from '../components/ViewOnlyUserProfile';
 
 export default class CollegeRouter extends React.Component {
     render() {
@@ -38,6 +40,8 @@ export default class CollegeRouter extends React.Component {
                 <Route exact path="/admin/dashboard" component={AdminDashboard}/>
                 <Route exact path="/admin/dashboard/user/create" component={CreateNewUserForm}/>
                 <Route exact path="/admin/dashboard/user/:userId/edit" component={AdminEditUserProfile}/>
+                <Route exact path="/search/user" component={SearchUser}/>
+                <Route exact path="/profile/:userId" component={ViewOnlyUserProfile}/>
             </div>
         </Router>;
     }
