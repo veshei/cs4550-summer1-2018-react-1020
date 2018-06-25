@@ -92,3 +92,7 @@ html,body { height:100%; }
 .added-users {
     margin-top: 20px;
 }
+
+.user-list {
+    margin-top: 20px;
+}

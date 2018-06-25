@@ -25,7 +25,7 @@ export default class SearchUser extends React.Component {
     }
 
     render() {
-        return (<div className="container-fluid col-8">
+        return (<div className="container-fluid user-list col-8">
             <div className="form-inline">
                 <input type="text"
                        placeholder="Search for a user by username..."
@@ -37,7 +37,7 @@ export default class SearchUser extends React.Component {
                     Search User
                 </button>
             </div>
-                <ul className="list-group">
+                <ul className="list-group user-list">
                     {this.state.users.map((user, idx) => {
                         return <UserListItem user={user}
                                              key={idx}/>
