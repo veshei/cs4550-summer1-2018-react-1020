@@ -19,9 +19,15 @@ export default class SearchUser extends React.Component {
     }
 
     searchUser() {
-        this.userService.findUsersLikeUsername(this.state.searchBar).then(users => {
-            this.setState({users: users});
-        })
+        if (this.state.searchBar) {
+            this.userService.findUsersLikeUsername(this.state.searchBar).then(users => {
+                this.setState({users: users});
+            });
+        } else {
+            this.userService.findAllUsers().then(users => {
+                this.setState({users: users});
+            });
+        }
     }
 
     render() {
