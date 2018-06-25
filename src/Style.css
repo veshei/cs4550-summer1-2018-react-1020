@@ -88,3 +88,11 @@ html,body { height:100%; }
 .author {
     font-weight: bold;
 }
+
+.added-users {
+    margin-top: 20px;
+}
+
+.user-list {
+    margin-top: 20px;
+}

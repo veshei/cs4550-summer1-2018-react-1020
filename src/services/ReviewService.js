@@ -25,7 +25,7 @@ export default class ReviewService {
      * @param collegeId the id of the college
      */
     findReviewsForCollege(collegeId) {
-        return fetch(HEROKU_URL + '/api/review/college/' + collegeId).then(response => {
+        return fetch(LOCAL_URL + '/api/review/college/' + collegeId).then(response => {
             return response.text().then(text => {
                 if (text) {
                     return JSON.parse(text);
@@ -64,7 +64,7 @@ export default class ReviewService {
      * @param reviewId the id of the review
      */
     deleteReview(reviewId) {
-        return fetch(HEROKU_URL + '/api/review/' + reviewId, {
+        return fetch(LOCAL_URL + '/api/review/' + reviewId, {
             method: 'DELETE',
             credentials: 'include'
         });
