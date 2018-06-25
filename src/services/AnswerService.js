@@ -24,7 +24,7 @@ export default class AnswerService {
      * @return all answers available
      */
     findAllAnswers() {
-        return fetch(LOCAL_URL + '/api/answer').then(response => {
+        return fetch(HEROKU_URL + '/api/answer').then(response => {
             return response.json();
         })
     }
@@ -35,7 +35,7 @@ export default class AnswerService {
      * @return all answers under that question
      */
     findAllAnswersForQuestion(questionId) {
-        return fetch(LOCAL_URL + '/api/question/' + questionId + '/answer').then(response => {
+        return fetch(HEROKU_URL + '/api/question/' + questionId + '/answer').then(response => {
             return response.json();
         });
     }
@@ -47,7 +47,7 @@ export default class AnswerService {
      * @return the new answer created on success, null on failure
      */
     createNewAnswer(questionId, answer) {
-        return fetch(LOCAL_URL + '/api/question/' + questionId + '/answer', {
+        return fetch(HEROKU_URL + '/api/question/' + questionId + '/answer', {
             method: 'POST',
             body: JSON.stringify(answer),
             headers: {
@@ -65,7 +65,7 @@ export default class AnswerService {
      * @return the answer whose id is the given id
      */
     findAnswerById(answerId) {
-        return fetch(LOCAL_URL + '/api/answer/' + answerId).then(response => {
+        return fetch(HEROKU_URL + '/api/answer/' + answerId).then(response => {
             return response.json();
         });
     }
@@ -75,7 +75,7 @@ export default class AnswerService {
      * @param answerId the id of the answer to delete
      */
     deleteAnswer(answerId) {
-        return fetch(LOCAL_URL + '/api/answer/' + answerId, {
+        return fetch(HEROKU_URL + '/api/answer/' + answerId, {
             method: 'DELETE'
         }).then(response => {
             return response;

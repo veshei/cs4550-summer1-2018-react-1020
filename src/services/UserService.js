@@ -24,7 +24,7 @@ export default class UserService {
      * @return the user, if login is successful
      */
     login(credentials) {
-        return fetch(LOCAL_URL + '/api/login', {
+        return fetch(HEROKU_URL + '/api/login', {
             method: 'POST',
             body: JSON.stringify(credentials),
             headers: {
@@ -58,7 +58,7 @@ export default class UserService {
         else if (credentials.role === 'ADMIN') {
             role = 'admin';
         }
-        return fetch(LOCAL_URL + '/api/register/' + role, {
+        return fetch(HEROKU_URL + '/api/register/' + role, {
             method: 'POST',
             body: JSON.stringify(credentials),
             headers: {
@@ -77,7 +77,7 @@ export default class UserService {
      * Logs the currently logged in user out.
      */
     logout() {
-        return fetch(LOCAL_URL + '/api/logout', {
+        return fetch(HEROKU_URL + '/api/logout', {
             method: 'POST',
             credentials: 'include'
         });
@@ -87,7 +87,7 @@ export default class UserService {
      * Returns the currently logged in user.
      */
     getProfile() {
-        return fetch(LOCAL_URL + '/api/profile', {
+        return fetch(HEROKU_URL + '/api/profile', {
             credentials: 'include'
             }
         ).then(response => {
@@ -105,7 +105,7 @@ export default class UserService {
      * @param updatedUser the updated user info
      */
     updateProfile(updatedUser) {
-        return fetch(LOCAL_URL + '/api/profile', {
+        return fetch(HEROKU_URL + '/api/profile', {
             method: 'PUT',
             body: JSON.stringify(updatedUser),
             headers: {
@@ -129,7 +129,7 @@ export default class UserService {
    * @returns {Promise<Response>} Returns the user if that username exists, null otherwise
    */
     findUserByUsername(username){
-        return fetch(LOCAL_URL + '/api/username/' + username)
+        return fetch(HEROKU_URL + '/api/username/' + username)
             .then(response => {
               if(response.status === 200){
                   console.log('response susccessful');
@@ -145,7 +145,7 @@ export default class UserService {
 
     //Finds all users
     findAllUsers() {
-      return fetch(LOCAL_URL + '/api/user', {
+      return fetch(HEROKU_URL + '/api/user', {
             credentials: 'include'
           }
       ).then(response => {
@@ -163,7 +163,7 @@ export default class UserService {
      * @return the new user created on success, null on failure
      */
     createUser(newUser) {
-        return fetch(LOCAL_URL + '/api/user', {
+        return fetch(HEROKU_URL + '/api/user', {
             method: 'POST',
             body: JSON.stringify(newUser),
             headers: {
@@ -179,7 +179,7 @@ export default class UserService {
      * @return a list of all the users in the database
      */
     findAllUsers() {
-        return fetch(LOCAL_URL + '/api/user').then(response => {
+        return fetch(HEROKU_URL + '/api/user').then(response => {
             return response.json();
         });
     }
@@ -189,7 +189,7 @@ export default class UserService {
      * @param userId the id of the user
      */
     deleteUserById(userId) {
-        return fetch(LOCAL_URL + '/api/user/' + userId, {
+        return fetch(HEROKU_URL + '/api/user/' + userId, {
             method: 'DELETE'
         });
     }
@@ -199,7 +199,7 @@ export default class UserService {
      * @param username
      */
     findUsersLikeUsername(username) {
-        return fetch(LOCAL_URL + '/api/user/' + username + '/similar').then(response => {
+        return fetch(HEROKU_URL + '/api/user/' + username + '/similar').then(response => {
             return response.json();
         })
     }
@@ -209,7 +209,7 @@ export default class UserService {
      * @param userId
      */
     findUserById(userId) {
-        return fetch(LOCAL_URL + '/api/user/' + userId).then(response => {
+        return fetch(HEROKU_URL + '/api/user/' + userId).then(response => {
             return response.json();
         })
     }
@@ -223,7 +223,7 @@ export default class UserService {
      */
     updateUserById(userId, updatedUser) {
         console.log(userId);
-        return fetch(LOCAL_URL + '/api/user/' + userId, {
+        return fetch(HEROKU_URL + '/api/user/' + userId, {
             method: 'PUT',
             body: JSON.stringify(updatedUser),
             headers: {
@@ -240,7 +240,7 @@ export default class UserService {
     }
 
     findParentForStudent(studentId) {
-        return fetch(LOCAL_URL + '/api/student/' + studentId + '/parent').then(response => {
+        return fetch(HEROKU_URL + '/api/student/' + studentId + '/parent').then(response => {
             return response.text().then(text => {
                 if (text) {
                     return JSON.parse(text);
@@ -251,7 +251,7 @@ export default class UserService {
     }
 
     findCounselorForStudent(studentId) {
-        return fetch(LOCAL_URL + '/api/student/' + studentId + '/counselor').then(response => {
+        return fetch(HEROKU_URL + '/api/student/' + studentId + '/counselor').then(response => {
             return response.text().then(text => {
                 if (text) {
                     return JSON.parse(text);
@@ -262,13 +262,13 @@ export default class UserService {
     }
 
     findCounselorsForParent(parentId) {
-        return fetch(LOCAL_URL + '/api/parent/' + parentId + '/counselor').then(response => {
+        return fetch(HEROKU_URL + '/api/parent/' + parentId + '/counselor').then(response => {
             return response.json();
         });
     }
 
     createStudentParentRelation(studentId, parentId) {
-        return fetch(LOCAL_URL + '/api/student/' + studentId + '/parent/' + parentId, {
+        return fetch(HEROKU_URL + '/api/student/' + studentId + '/parent/' + parentId, {
             method: 'POST'
         }).then(response => {
             if (response.ok) {
@@ -280,7 +280,7 @@ export default class UserService {
     }
 
     createStudentCounselorRelation(studentId, counselorId) {
-        return fetch(LOCAL_URL + '/api/student/' + studentId + '/counselor/' + counselorId, {
+        return fetch(HEROKU_URL + '/api/student/' + studentId + '/counselor/' + counselorId, {
             method: 'POST'
         }).then(response => {
             if (response.ok) {
@@ -294,7 +294,7 @@ export default class UserService {
     }
 
     createParentCounselorRelation(parentId, counselorId) {
-        return fetch(LOCAL_URL + '/api/parent/' + parentId + '/counselor/' + counselorId, {
+        return fetch(HEROKU_URL + '/api/parent/' + parentId + '/counselor/' + counselorId, {
             method: 'POST'
         }).then(response => {
             if (response.ok) {
@@ -308,7 +308,7 @@ export default class UserService {
     }
 
     deleteStudentParentRelation(studentId, parentId) {
-        return fetch(LOCAL_URL + '/api/student/' + studentId + '/parent/' + parentId, {
+        return fetch(HEROKU_URL + '/api/student/' + studentId + '/parent/' + parentId, {
             method: 'DELETE'
         }).then(response => {
             if (response.ok) {
@@ -322,7 +322,7 @@ export default class UserService {
     }
 
     deleteStudentCounselorRelation(studentId, counselorId) {
-        return fetch(LOCAL_URL + '/api/student/' + studentId + '/counselor/' + counselorId, {
+        return fetch(HEROKU_URL + '/api/student/' + studentId + '/counselor/' + counselorId, {
             method: 'DELETE'
         }).then(response => {
             if (response.ok) {
@@ -336,7 +336,7 @@ export default class UserService {
     }
 
     deleteParentCounselorRelation(parentId, counselorId) {
-        return fetch(LOCAL_URL + '/api/parent/' + parentId + '/counselor/' + counselorId, {
+        return fetch(HEROKU_URL + '/api/parent/' + parentId + '/counselor/' + counselorId, {
             method: 'DELETE'
         }).then(response => {
             if (response.ok) {
