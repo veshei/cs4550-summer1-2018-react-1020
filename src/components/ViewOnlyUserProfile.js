@@ -17,15 +17,24 @@ export default class ViewOnlyUserProfile extends React.Component {
             lastName: '', // the last name field
             dateOfBirth: '', // the date of birth field
             collegeLists: [],
-            canAdd: false // false by default
+            canAdd: false, // false by default
+            shouldShowButton: false // false by default
         };
         this.userService = UserService.instance;
         this.getRole = this.getRole.bind(this);
         this.userCanAdd = this.userCanAdd.bind(this);
         this.addUser = this.addUser.bind(this);
+        this.deleteUser = this.deleteUser.bind(this);
         this.addUserForStudent = this.addUserForStudent.bind(this);
         this.addUserForParent = this.addUserForParent.bind(this);
         this.addUserForCounselor = this.addUserForCounselor.bind(this);
+        this.deleteUserForStudent = this.deleteUserForStudent.bind(this);
+        this.deleteUserForParent = this.deleteUserForParent.bind(this);
+        this.deleteUserForCounselor = this.deleteUserForCounselor.bind(this);
+        this.studentCanAdd = this.studentCanAdd.bind(this);
+        this.parentCanAdd = this.parentCanAdd.bind(this);
+        this.counselorCanAdd = this.counselorCanAdd.bind(this);
+        this.containsParent = this.containsParent.bind(this);
     }
 
     componentDidMount() {
@@ -43,41 +52,95 @@ export default class ViewOnlyUserProfile extends React.Component {
                 lastName: user.lastName,
                 dateOfBirth: user.dateOfBirth,
                 collegeLists: user.collegeLists
+            });
+        }).then(() => {this.userCanAdd()});
+    }
+
+    studentCanAdd(loggedInStudentId) {
+        if (this.state.user.role === 'STUDENT') {
+            this.setState({canAdd: true});
+        }
+        if (this.state.user.role === 'PARENT') {
+            this.userService.findParentForStudent(loggedInStudentId).then(parent => {
+                console.log(parent);
+                this.setState({canAdd: parent === null || parent.id !== this.state.user.id}); // User can add if parent is not set yet
+            });
+        } else if (this.state.user.role === 'COLLEGE_COUNSELOR') {
+            this.userService.findCounselorForStudent(loggedInStudentId).then(counselor => {
+                if (counselor) {
+                    this.setState({canAdd: counselor.id !== this.state.user.id});
+                } else {
+                    this.setState({canAdd: true});
+                }
             })
-        })
+        } else {
+            this.setState({canAdd: false});
+        }
+    }
+
+    parentCanAdd(loggedInParentId) {
+        if (this.state.user.role === 'STUDENT') {
+            this.userService.findParentForStudent(this.state.user.id).then(parent => {
+                if (parent) {
+                    this.setState({canAdd: parent.id !== loggedInParentId})
+                } else {
+                    this.setState({canAdd: true});
+                }
+            })
+        } else if (this.state.user.role === 'PARENT') {
+            this.setState({canAdd: true});
+        } else if (this.state.user.role === 'COLLEGE_COUNSELOR') {
+            this.setState({canAdd: !this.containsParent(loggedInParentId, this.state.user.parents)})
+        } else {
+            this.setState({canAdd: false});
+        }
+    }
+
+    containsParent(parentId, parentList) {
+        for (let idx = 0; idx < parentList.length; idx += 1) {
+            if (parentList[idx].id === parentId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    counselorCanAdd(loggedInCounselorId) {
+        if (this.state.user.role === 'STUDENT') {
+            this.userService.findCounselorForStudent(this.state.user.id).then(counselor => {
+                this.setState({canAdd: counselor === null || counselor.id !== loggedInCounselorId});
+            })
+        } else if (this.state.user.role === 'PARENT') {
+            this.userService.findUserById(loggedInCounselorId).then(counselor => {
+                this.setState({canAdd: !this.containsParent(this.state.user.id, counselor.parents)})
+            })
+        } else if (this.state.user.role === 'COUNSELOR') {
+            this.setState({canAdd: true});
+        } else {
+            this.setState({canAdd: false});
+        }
     }
 
     // Determines whether the user can add this user or not. The requirements for the ability to add this user are
     // 1. User is not already added
     // 2. If user is a student, this person's role added already
     userCanAdd() {
-        // this.userService.getProfile().then(loggedInUser => {
-        //     switch (loggedInUser.role) {
-        //         case 'STUDENT': {
-        //             if (this.state.user.role === 'PARENT') {
-        //                 this.userService.findParentForStudent(loggedInUser.id).then(parent => {
-        //                     this.setState({canAdd: parent === null}); // User can add if parent is not set yet
-        //                 });
-        //             } else if (this.state.user.role === 'COUNSELOR') {
-        //                 this.userService.findCounselorForStudent(loggedInUser.id).then(counselor => {
-        //                     this.setState({canAdd: counselor === null});
-        //                 })
-        //             }
-        //             break;
-        //         }
-        //         case 'PARENT':
-        //             if (this.state.user.role === 'STUDENT') {
-        //                 // Find the student's parent and check if that id is equal with this id
-        //                 this.userService.findParentForStudent(loggedInUser.id).then(parent => {
-        //                     if (!parent) {
-        //                         this.setState({canAdd: true});
-        //                     } else if (parent.id !== )
-        //                 })
-        //             }
-        //     }
-        // })
-
-        return true;
+        this.userService.getProfile().then(loggedInUser => {
+            switch (loggedInUser.role) {
+                case 'STUDENT': {
+                    return this.studentCanAdd(loggedInUser.id);
+                }
+                case 'PARENT': {
+                    return this.parentCanAdd(loggedInUser.id);
+                }
+                case 'COLLEGE_COUNSELOR': {
+                    return this.counselorCanAdd(loggedInUser.id);
+                }
+                default: {
+                    return false;
+                }
+            }
+        })
     }
 
     addUserForStudent(loggedInUserId) {
@@ -88,10 +151,12 @@ export default class ViewOnlyUserProfile extends React.Component {
                     this.userService.createStudentParentRelation(loggedInUserId, this.state.user.id)
                         .then(responseString => {
                             console.log(responseString);
+                            alert('Parent added');
                         });
                 } else {
                     alert('You already have a parent added!');
                 }
+                this.userCanAdd()
             })
 
         } else if (this.state.user.role === 'COLLEGE_COUNSELOR') {
@@ -101,10 +166,12 @@ export default class ViewOnlyUserProfile extends React.Component {
                     this.userService.createStudentCounselorRelation(loggedInUserId, this.state.user.id)
                         .then(responseString => {
                             console.log(responseString);
+                            alert('Counselor added to student');
                         });
                 } else {
                     alert('You already have a counselor added!');
                 }
+                this.userCanAdd()
             })
 
         } else {
@@ -119,11 +186,13 @@ export default class ViewOnlyUserProfile extends React.Component {
                 if (!counselor) {
                     this.userService.createStudentCounselorRelation(this.state.user.id, loggedInUserId).then(responseString => {
                         console.log(responseString);
+                        alert('Student added to counselor');
                     });
                 } else {
                     alert('Student already has a counselor');
                 }
             })
+            this.userCanAdd()
         } else if (this.state.user.role === 'PARENT') {
             this.userService.createParentCounselorRelation(this.state.user.id, loggedInUserId).then(responseString => {
                 if (responseString === 'ok') {
@@ -132,6 +201,7 @@ export default class ViewOnlyUserProfile extends React.Component {
                     alert('Parent is already added');
                 }
             });
+            this.userCanAdd();
         } else {
             alert('Counselors cannot add other parents or admins');
         }
@@ -143,9 +213,11 @@ export default class ViewOnlyUserProfile extends React.Component {
             this.userService.findParentForStudent(this.state.user.id).then(parent => {
                 if (!parent) {
                     this.userService.createStudentParentRelation(this.state.user.id, loggedInUserId);
+                    alert('Parent added to student');
                 } else {
                     alert('Student already has a parent');
                 }
+                this.userCanAdd();
             })
         } else if (this.state.user.role === 'COLLEGE_COUNSELOR') {
             this.userService.createParentCounselorRelation(loggedInUserId, this.state.user.id).then(responseString => {
@@ -154,6 +226,7 @@ export default class ViewOnlyUserProfile extends React.Component {
                 } else {
                     alert('College counselor is already added');
                 }
+                this.userCanAdd();
             });
         } else {
             alert('Parents cannot add other counselors or admins');
@@ -176,9 +249,141 @@ export default class ViewOnlyUserProfile extends React.Component {
             } else {
                 window.location = '/login';
             }
-        })
+        }).then(() => {this.userCanAdd()})
         // Check that they're compatible with each other
         // Send to the respective user service function
+    }
+
+    deleteUserForStudent(loggedInStudentId) {
+        switch(this.state.user.role) {
+            case 'STUDENT': {
+                alert('Cannot delete users from other users');
+                break;
+            }
+            case 'PARENT': {
+                this.userService.deleteStudentParentRelation(loggedInStudentId, this.state.user.id).then(responseString => {
+                    if (responseString === 'ok') {
+                        alert('Parent removed from student');
+                    } else {
+                        alert('Could not remove parent form student')
+                    }
+                });
+                this.userCanAdd()
+                break;
+            }
+            case 'COLLEGE_COUNSELOR': {
+                this.userService.deleteStudentCounselorRelation(loggedInStudentId, this.state.user.id).then(responseString => {
+                    if (responseString === 'ok') {
+                        alert('Counselor removed from student');
+                    } else {
+                        alert('Could not remove counselor from student');
+                    }
+                });
+                this.userCanAdd()
+                break;
+            }
+            default: {
+                alert('Cannot delete admins from other users');
+            }
+        }
+    }
+
+    deleteUserForParent(loggedInParentId) {
+        switch(this.state.user.role) {
+            case 'STUDENT': {
+                this.userService.deleteStudentParentRelation(this.state.user.id, loggedInParentId).then(responseString => {
+                    if (responseString === 'ok') {
+                        alert('Parent removed from student');
+                    } else {
+                        alert('Could not remove parent from student');
+                    }
+                    this.userCanAdd()
+                });
+                break;
+            }
+            case 'PARENT': {
+                alert('Parents cannot remove parents from themselves');
+                break;
+            }
+            case 'COLLEGE_COUNSELOR': {
+                this.userService.deleteParentCounselorRelation(loggedInParentId, this.state.user.id).then(responseString => {
+                    if (responseString === 'ok') {
+                        alert('Counselor removed from parent');
+                    } else {
+                        alert('Could not remove counselor from parent');
+                    }
+                    this.userCanAdd()
+                })
+            }
+        }
+    }
+
+    deleteUserForCounselor(loggedInCounselorId) {
+        switch (this.state.user.role) {
+            case 'STUDENT': {
+                this.userService.deleteStudentCounselorRelation(this.state.user.id, loggedInCounselorId).then(responseString => {
+                    if (responseString === 'ok') {
+                        alert('Counselor removed from student');
+                    } else {
+                        alert('Could not remove counselor from student');
+                    }
+                    this.userCanAdd()
+                });
+                break;
+            }
+            case 'PARENT': {
+                this.userService.deleteParentCounselorRelation(this.state.user.id, loggedInCounselorId).then(responseString => {
+                    if (responseString === 'ok') {
+                        alert('Counselor removed from parent');
+                    } else {
+                        alert('Could not remove counselor from parent');
+                    }
+                    this.userCanAdd()
+                });
+                break;
+            }
+            case 'COLLEGE_COUNSELOR': {
+                alert('Counselors cannot remove counselors from themselves');
+                break;
+            }
+        }
+    }
+
+    // Deletes this user from the "friend's" list of the currently logged in user
+    deleteUser() {
+        this.userService.getProfile().then(loggedInUser => {
+            if (loggedInUser) {
+                switch (loggedInUser.role) {
+                    case 'STUDENT': {
+                        this.deleteUserForStudent(loggedInUser.id);
+                        break;
+                    }
+                    case 'PARENT': {
+                        this.deleteUserForParent(loggedInUser.id);
+                        break;
+                    }
+                    case 'COLLEGE_COUNSELOR':
+                        this.deleteUserForCounselor(loggedInUser.id);
+                        break;
+                }
+            }
+        }).then(this.userCanAdd);
+    }
+
+    renderButton() {
+        if (this.state.canAdd) {
+            return <button type="button"
+                    onClick={this.addUser}
+                    className="btn btn-primary">
+                Add {this.state.user.role.toLowerCase()}
+            </button>
+        } else {
+            return <button type="button"
+                    onClick={this.deleteUser}
+                    className="btn btn-danger">
+                Delete {this.state.user.role.toLowerCase()}
+            </button>
+        }
     }
 
     getRole(){
@@ -244,13 +449,7 @@ export default class ViewOnlyUserProfile extends React.Component {
                    value={this.state.dateOfBirth.substring(0, 10)}
             />
             <br/>
-
-            {this.userCanAdd() &&
-            <button type="button"
-                    onClick={this.addUser}
-                    className="btn btn-primary">
-                Add {this.state.user.role.toLowerCase()}
-            </button>}
+            {this.renderButton()}
         </div>);
     }
 }

@@ -306,4 +306,46 @@ export default class UserService {
             return 'not ok';
         });
     }
+
+    deleteStudentParentRelation(studentId, parentId) {
+        return fetch(LOCAL_URL + '/api/student/' + studentId + '/parent/' + parentId, {
+            method: 'DELETE'
+        }).then(response => {
+            if (response.ok) {
+                return 'ok'
+            } else {
+                return 'not ok';
+            }
+        }).catch(err => {
+            return 'not ok';
+        })
+    }
+
+    deleteStudentCounselorRelation(studentId, counselorId) {
+        return fetch(LOCAL_URL + '/api/student/' + studentId + '/counselor/' + counselorId, {
+            method: 'DELETE'
+        }).then(response => {
+            if (response.ok) {
+                return 'ok';
+            } else {
+                return 'not ok';
+            }
+        }).catch(err => {
+            return 'not ok';
+        });
+    }
+
+    deleteParentCounselorRelation(parentId, counselorId) {
+        return fetch(LOCAL_URL + '/api/parent/' + parentId + '/counselor/' + counselorId, {
+            method: 'DELETE'
+        }).then(response => {
+            if (response.ok) {
+                return 'ok';
+            } else {
+                return 'not ok';
+            }
+        }).catch(err => {
+            return 'not ok';
+        })
+    }
 }
